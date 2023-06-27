@@ -3795,7 +3795,9 @@ readers do not read off random characters that represent icons */
   content: "\e558"; }
 
 .fa-tag::before {
-  content: "\f02b"; }
+    font-family: fontawesome;
+  content: "\f02b";
+}
 
 .fa-comment::before {
   content: "\f075"; }

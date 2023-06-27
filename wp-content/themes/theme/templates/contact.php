@@ -50,7 +50,8 @@ get_header();
                                     <div class="gdlr-core-pbf-column-content clearfix gdlr-core-js " data-gdlr-animation="fadeInUp" data-gdlr-animation-duration="600ms" data-gdlr-animation-offset="0.8">
                                         <div class="gdlr-core-pbf-element">
                                             <div class="gdlr-core-icon-item gdlr-core-item-pdlr gdlr-core-item-pdb gdlr-core-center-align" style="padding-bottom: 55px ;">
-                                                <i class=" gdlr-core-icon-item-icon  <?= $value['contact_method']['icon']; ?>" style="color: #454545 ;font-size: 40px ;min-width: 40px ;min-height: 40px ;"></i>
+<!--                                                <i class=" gdlr-core-icon-item-icon  --><?//= $value['contact_method']['icon']; ?><!--" style="color: #454545 ;font-size: 40px ;min-width: 40px ;min-height: 40px ;"></i>-->
+                                                <img src="<?= $value['contact_method']['icon']; ?>" style="color: #454545 ;font-size: 40px ;min-width: 40px ;min-height: 40px ; max-height: 50px;">
                                             </div>
                                         </div>
                                         <div class="gdlr-core-pbf-element">
@@ -91,7 +92,8 @@ get_header();
                                         <div class="gdlr-core-pbf-column-content clearfix gdlr-core-js " data-gdlr-animation="fadeInDown" data-gdlr-animation-duration="600ms" data-gdlr-animation-offset="0.8">
                                             <div class="gdlr-core-pbf-element">
                                                 <div class="gdlr-core-icon-item gdlr-core-item-pdlr gdlr-core-item-pdb gdlr-core-center-align" style="padding-bottom: 55px ;">
-                                                    <i class=" gdlr-core-icon-item-icon  <?= $value['contact_method']['icon']; ?>" style="color: #454545 ;font-size: 40px ;min-width: 40px ;min-height: 40px ;"></i>
+<!--                                                    <i class=" gdlr-core-icon-item-icon  --><?//= $value['contact_method']['icon']; ?><!--" style="color: #454545 ;font-size: 40px ;min-width: 40px ;min-height: 40px ;"></i>-->
+                                                    <img src="<?= $value['contact_method']['icon']; ?>" style="color: #454545 ;font-size: 40px ;min-width: 40px ;min-height: 40px ; max-height: 50px;">
                                                 </div>
                                             </div>
                                             <div class="gdlr-core-pbf-element">
@@ -137,8 +139,8 @@ get_header();
                                             <div class="gdlr-core-pbf-element">
                                                 <div class="gdlr-core-icon-item gdlr-core-item-pdlr gdlr-core-item-pdb gdlr-core-center-align"
                                                      style="padding-bottom: 55px ;">
-                                                    <i class=" gdlr-core-icon-item-icon  <?= $value['contact_method']['icon']; ?>"
-                                                       style="color: #454545 ;font-size: 40px ;min-width: 40px ;min-height: 40px ;"></i>
+<!--                                                    <i class=" gdlr-core-icon-item-icon  --><?//= $value['contact_method']['icon']; ?><!--" style="color: #454545 ;font-size: 40px ;min-width: 40px ;min-height: 40px ;"></i>-->
+                                                    <img src="<?= $value['contact_method']['icon']; ?>" style="color: #454545 ;font-size: 40px ;min-width: 40px ;min-height: 40px ; max-height: 50px;">
                                                 </div>
                                             </div>
                                             <div class="gdlr-core-pbf-element">

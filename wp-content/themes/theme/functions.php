@@ -346,10 +346,10 @@ function load_scripts() {
 add_action('wp_enqueue_scripts', 'load_scripts');
 
 function filter_ajax(){
-    $sort_order = no_sql_injection(xss($_POST['sort_order']));
-    $tourSearch = no_sql_injection(xss($_POST['$tourSearch']));
-    $destination = no_sql_injection(xss($_POST['destination']));
-    $duration = no_sql_injection(xss($_POST['duration']));
+    $sort_order = xss(no_sql_injection($_POST['sort_order']));
+    $tourSearch = xss(no_sql_injection($_POST['tourSearch']));
+    $destination = xss(no_sql_injection($_POST['destination']));
+    $duration = xss(no_sql_injection($_POST['duration']));
 
     $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
 
@@ -357,6 +357,7 @@ function filter_ajax(){
         $arrTour = array(
             'post_type'=>'dia_diem_du_lich',
             'paged' => $paged,
+            'relation'=>'AND',
             'tax_query'=>array(
                 array(
                     'taxonomy'=>'location',
@@ -381,6 +382,7 @@ function filter_ajax(){
             'orderby' => 'meta_value_num',
             'order' => $sort_order
         );
+        echo '<script>console.log("tren");</script>';
     }else{
         $arrTour = array(
             'post_type'=>'dia_diem_du_lich',
@@ -397,6 +399,7 @@ function filter_ajax(){
             'orderby' => 'meta_value_num',
             'order' => $sort_order
         );
+        echo '<script>console.log("duoi");</script>';
     }
 
     $tour = new WP_Query($arrTour);
@@ -895,6 +898,7 @@ function filter_ajax(){
     }
 
     echo $output;
+
     wp_reset_postdata();
     die();
 

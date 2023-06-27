@@ -13863,6 +13863,7 @@ form.submitting .wpcf7-spinner {
 
 .fa-tag:before {
     content: "\f02b"
+    font-family: fontawesome;
 }
 
 .fa-tags:before {
@@ -13938,7 +13939,8 @@ form.submitting .wpcf7-spinner {
 }
 
 .fa-photo:before,.fa-image:before,.fa-picture-o:before {
-    content: "\f03e"
+    content: "\f03e";
+    font-family: 'FontAwesome';
 }
 
 .fa-pencil:before {
@@ -14093,10 +14095,12 @@ form.submitting .wpcf7-spinner {
 
 .fa-plus:before {
     content: "\f067"
+    font-family: fontawesome;
 }
 
 .fa-minus:before {
-    content: "\f068"
+    content: "\f068";
+    font-family: fontawesome;
 }
 
 .fa-asterisk:before {
@@ -14169,7 +14173,8 @@ form.submitting .wpcf7-spinner {
 }
 
 .fa-folder:before {
-    content: "\f07b"
+    content: "\f07b";
+    font-family: fontawesome;
 }
 
 .fa-folder-open:before {
@@ -14953,7 +14958,8 @@ form.submitting .wpcf7-spinner {
 }
 
 .fa-file:before {
-    content: "\f15b"
+    content: "\f15b";
+    font-family: fontawesome;
 }
 
 .fa-file-text:before {
@@ -22410,7 +22416,7 @@ ul.slides .clearfix {
 }
 
 .gdlr-core-accordion-style-box-icon .gdlr-core-accordion-item-icon:before {
-    content: "\4c";
+    /*content: "\4c";*/
     font-family: "ElegantIcons"
 }
 
@@ -22419,7 +22425,8 @@ ul.slides .clearfix {
 }
 
 .gdlr-core-accordion-style-box-icon .gdlr-core-accordion-item-tab.gdlr-core-active .gdlr-core-accordion-item-icon:before {
-    content: "\4b"
+    font-family: fontawesome;
+    /*content: "\4b"*/
 }
 
 .gdlr-core-accordion-style-icon .gdlr-core-accordion-item-tab {
@@ -34844,8 +34851,8 @@ body.ilightbox-noscroll {
 }
 
 .tourmaster-header-price .tourmaster-tour-price-wrap:before {
-    font-family: 'ElegantIcons';
-    content: "\e017";
+    font-family: fontawesome;
+    /*content: "\e017";*/
     font-size: 23px;
     margin-right: 15px
 }
@@ -37508,11 +37515,11 @@ a.tourmaster-button,input[type="button"].tourmaster-button,input[type="submit"].
 }
 
 .tourmaster-tour-item .gdlr-core-flexslider[data-nav="navigation-outer"] .flex-direction-nav li.flex-nav-next {
-    right: -70px
+    right: 200px
 }
 
 .tourmaster-tour-item .gdlr-core-flexslider[data-nav="navigation-outer"] .flex-direction-nav li.flex-nav-prev {
-    left: -70px
+    left: 200px
 }
 
 .tourmaster-tour-item .gdlr-core-flexslider[data-nav="navigation-outer"] .flex-direction-nav li.flex-nav-next a,.tourmaster-tour-item .gdlr-core-flexslider[data-nav="navigation-outer"] .flex-direction-nav li.flex-nav-prev a {
@@ -37520,11 +37527,11 @@ a.tourmaster-button,input[type="button"].tourmaster-button,input[type="submit"].
 }
 
 .tourmaster-tour-item .gdlr-core-flexslider[data-nav="navigation-outer"] .flex-direction-nav li.flex-nav-next:hover {
-    right: -80px
+    right: 210px
 }
 
 .tourmaster-tour-item .gdlr-core-flexslider[data-nav="navigation-outer"] .flex-direction-nav li.flex-nav-prev:hover {
-    left: -80px
+    left: 210px
 }
 
 .tourmaster-tour-item .gdlr-core-flexslider[data-nav="navigation-outer"] .flex-direction-nav .arrow_carrot-left:before {
@@ -40381,8 +40388,7 @@ table.tourmaster-my-booking-table a.tourmaster-my-booking-action,table.tourmaste
 }
 
 .tourmaster-tour-style-2 .tourmaster-form-field .tourmaster-combobox-wrap:after,.tourmaster-tour-style-2 .tourmaster-form-field .tourmaster-combobox-list-display:after,.tourmaster-tour-style-2 .tourmaster-datepicker-wrap:after {
-    font-family: ElegantIcons;
-    content: "\33"
+    font-family: fontawesome;
 }
 
 .tourmaster-tour-style-2 .tourmaster-tour-booking-next-sign {
@@ -54188,7 +54194,7 @@ ul.gdlr-core-custom-menu-widget.gdlr-core-menu-style-plain li {
 }
 
 .traveltour-item-mgb,.gdlr-core-item-mgb {
-    margin-bottom: 40px
+    margin-bottom: 25px
 }
 
 .tnp-subscription {
@@ -63227,4 +63233,18 @@ rs-loader.spinner15 .rs-spinner-inner:last-child {
 
 .avada-has-rev-slider-styles .rev_slider_wrapper {
     transform: none
+}
+
+.gdlr-core-newsletter-email p br{
+    display: none;
+}
+
+.gdlr-core-newsletter-submit {
+    max-height: 60px;
+}
+
+.tourmaster-tour-booking-bar-widget .widget .textwidget .gdlr-core-widget-list-shortcode ul i{
+    font-size: 15px ;
+    color: #f97150 ;
+    margin-right: 13px ;
 }

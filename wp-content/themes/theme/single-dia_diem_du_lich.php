@@ -8,6 +8,8 @@
 
 $obj = get_queried_object();
 
+$terms = wp_get_post_terms($obj->ID ,'location');
+
 $fieldInformation = get_field("imformation_tour", $obj->ID);
 
 $fieldBooking = get_field("information_booking_tour", $obj->ID);
@@ -45,7 +47,7 @@ get_header();
                                     <a class="gdlr-core-lightgallery gdlr-core-js " href="<?= $image?>" data-lightbox-group="tourmaster-single-header-gallery"></a>
                             <?php endif;?>
                             <?php endforeach;?>
-                            <a class="gdlr-core-lightgallery gdlr-core-js tourmaster-single-header-gallery-button" href="<?= $fieldDetail['video']?>">
+                            <a  href="<?= $fieldDetail['video']?>" style="padding: 10px 15px 8px; background-color: white; border-radius: 3px; font-size: 12px; cursor: pointer; display: inline-block; margin-right: 10px; color: #2a2a2a;">
                                 <i class="fa fa-video-camera"></i>
                                 Video
                             </a>
@@ -79,6 +81,7 @@ get_header();
                                         </div>
                                     <?php else:?>
                                         <div class="tourmaster-tour-price-wrap tourmaster-discount">
+                                            <i class="fa-light fa-tag" style="font-size: 23px; margin-right: 15px"></i>
                                                                         <span class="tourmaster-tour-price">
 <!--                                                                            <span class="tourmaster-head">From</span>-->
                                                                             <span class="tourmaster-tail">$<?= $fieldGareral['old_price']?></span>
@@ -95,7 +98,6 @@ get_header();
                                 </div>
                                 <div class="tourmaster-booking-tab-content" data-tourmaster-tab="enquiry">
                                     <div class="tourmaster-tour-booking-enquiry-wrap">
-                                        <!--                                            id="tourmaster-enquiry-form" data-ajax-url="https://demo.goodlayers.com/traveltour/main4/wp-admin/admin-ajax.php" data-action="tourmaster_send_enquiry_form"-->
                                         <?php
                                         $formEnquiry = '[contact-form-7 id="330" title="Enquiry Form"]';
                                         echo do_shortcode($formEnquiry);
@@ -183,22 +185,17 @@ get_header();
                                     <div class="gdlr-core-widget-list-shortcode" id="gdlr-core-widget-list-0">
                                         <h3 class="gdlr-core-widget-list-shortcode-title">Why Book With Us?</h3>
                                         <ul>
-                                            <li>
-                                                <i class="fa fa-dollar" style="font-size: 15px ;color: #f97150 ;margin-right: 13px ;"></i>
-                                                No-hassle best price guarantee
-                                            </li>
-                                            <li>
-                                                <i class="fa fa-headphones" style="font-size: 15px ;color: #f97150 ;margin-right: 10px ;"></i>
-                                                Customer care available 24/7
-                                            </li>
-                                            <li>
-                                                <i class="fa fa-star" style="font-size: 15px ;color: #f97150 ;margin-right: 10px ;"></i>
-                                                Hand-picked Tours &Activities
-                                            </li>
-                                            <li>
-                                                <i class="fa fa-support" style="font-size: 15px ;color: #f97150 ;margin-right: 10px ;"></i>
-                                                Free Travel Insureance
-                                            </li>
+                                            <?php
+                                            $reasons = get_field('reason' ,'option');
+                                            foreach ($reasons as $reason){
+                                                ?>
+                                                <li>
+                                                    <?= $reason['icon']; ?>
+                                                    <?= $reason['title']; ?>
+                                                </li>
+                                                <?php
+                                            }
+                                            ?>
                                         </ul>
                                     </div>
                                 </div>
@@ -212,14 +209,15 @@ get_header();
                                             <p>Do not hesitage to give us a call. We are an expert team and we are happy to talk to you.</p>
                                             <p>
                                                 <i class="fa fa-phone" style="font-size: 20px ;color: #ffe786 ;margin-right: 10px ;"></i>
-                                                <span style="font-size: 20px; color: #ffffff; font-weight: 600;">1.8445.3356.33</span>
+                                                <span style="font-size: 20px; color: #ffffff; font-weight: 600;"><?= get_field('phone', 'option'); ?></span>
                                                 <br />
                                                 <span class="gdlr-core-space-shortcode" style="margin-top: -15px ;"></span>
                                                 <br />
                                                 <i class="fa fa-envelope-o" style="font-size: 17px ;color: #ffe786 ;margin-right: 10px ;"></i>
                                                 <span style="font-size: 14px; color: #fff; font-weight: 600;">
-                                                                <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="d890bdb4a898bfb7b7bcb4b9a1bdaaabf6bbb7b5">[email &#160;protected]</a>
-                                                            </span>
+<!--                                                                <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="d890bdb4a898bfb7b7bcb4b9a1bdaaabf6bbb7b5">[email &#160;protected]</a>-->
+                                                    <?= get_field('email', 'option'); ?>
+                                                </span>
                                             </p>
                                         </div>
                                     </div>
@@ -268,7 +266,7 @@ get_header();
                                             <i class="fa fa-star"></i>
                                             <i class="fa fa-star"></i>
                                             <i class="fa fa-star"></i>
-                                            <span class="tourmaster-tour-rating-text">(1 Review)</span>
+                                            <span class="tourmaster-tour-rating-text"></span>
                                         </div>
                                     </div>
                                 </div>
@@ -403,6 +401,176 @@ get_header();
                                         </div>
                                     </div>
                                 <?php }
+                                ?>
+
+                                <?php
+                                $fieldDeparture = $fieldService['departure_&_return_location'];
+                                if (!empty($fieldDeparture)){
+                                    ?>
+                                    <div class="gdlr-core-pbf-element">
+                                        <div class="gdlr-core-divider-item gdlr-core-divider-item-normal gdlr-core-item-pdlr gdlr-core-center-align" style="margin-bottom: 20px ;">
+                                            <div class="gdlr-core-divider-line gdlr-core-skin-divider"></div>
+                                        </div>
+                                    </div>
+                                    <div class="gdlr-core-pbf-column gdlr-core-column-30 gdlr-core-column-first">
+                                        <div class="gdlr-core-pbf-column-content-margin gdlr-core-js ">
+                                            <div class="gdlr-core-pbf-background-wrap"></div>
+                                            <div class="gdlr-core-pbf-column-content clearfix gdlr-core-js ">
+                                                <div class="gdlr-core-pbf-element">
+                                                    <div class="gdlr-core-title-item gdlr-core-item-pdb clearfix  gdlr-core-left-align gdlr-core-title-item-caption-top gdlr-core-item-pdlr" style="padding-bottom: 0px ;">
+                                                        <div class="gdlr-core-title-item-title-wrap">
+                                                            <h3 class="gdlr-core-title-item-title gdlr-core-skin-title" style="font-size: 15px ;font-weight: 500 ;letter-spacing: 0px ;text-transform: none ;">
+                                                                Departure & Return Location <span class="gdlr-core-title-item-title-divider gdlr-core-skin-divider"></span>
+                                                            </h3>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="gdlr-core-pbf-column gdlr-core-column-30">
+                                        <div class="gdlr-core-pbf-column-content-margin gdlr-core-js ">
+                                            <div class="gdlr-core-pbf-column-content clearfix gdlr-core-js ">
+                                                <div class="gdlr-core-pbf-element">
+                                                    <div class="gdlr-core-text-box-item gdlr-core-item-pdlr gdlr-core-item-pdb gdlr-core-left-align" style="padding-bottom: 0px ;">
+                                                        <div class="gdlr-core-text-box-item-content">
+                                                            <p>
+                                                                <?= $fieldDeparture['name_location']; ?> (<a href="<?= $fieldDeparture['link_map'];?>">Google Map</a>)
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <?php
+                                }
+                                ?>
+
+                                <?php
+                                $fieldDepartureTime = $fieldService['departure_time'];
+                                if (!empty(departure_time) || $fieldDepartureTime != 0){
+                                    ?>
+                                    <div class="gdlr-core-pbf-element">
+                                        <div class="gdlr-core-divider-item gdlr-core-divider-item-normal gdlr-core-item-pdlr gdlr-core-center-align" style="margin-bottom: 19px ;">
+                                            <div class="gdlr-core-divider-line gdlr-core-skin-divider"></div>
+                                        </div>
+                                    </div>
+                                    <div class="gdlr-core-pbf-column gdlr-core-column-30 gdlr-core-column-first">
+                                        <div class="gdlr-core-pbf-column-content-margin gdlr-core-js ">
+                                            <div class="gdlr-core-pbf-background-wrap"></div>
+                                            <div class="gdlr-core-pbf-column-content clearfix gdlr-core-js ">
+                                                <div class="gdlr-core-pbf-element">
+                                                    <div class="gdlr-core-title-item gdlr-core-item-pdb clearfix  gdlr-core-left-align gdlr-core-title-item-caption-top gdlr-core-item-pdlr" style="padding-bottom: 0px ;">
+                                                        <div class="gdlr-core-title-item-title-wrap">
+                                                            <h3 class="gdlr-core-title-item-title gdlr-core-skin-title" style="font-size: 15px ;font-weight: 500 ;letter-spacing: 0px ;text-transform: none ;">
+                                                                Departure Time<span class="gdlr-core-title-item-title-divider gdlr-core-skin-divider"></span>
+                                                            </h3>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="gdlr-core-pbf-column gdlr-core-column-30">
+                                        <div class="gdlr-core-pbf-column-content-margin gdlr-core-js ">
+                                            <div class="gdlr-core-pbf-column-content clearfix gdlr-core-js ">
+                                                <div class="gdlr-core-pbf-element">
+                                                    <div class="gdlr-core-text-box-item gdlr-core-item-pdlr gdlr-core-item-pdb gdlr-core-left-align" style="padding-bottom: 0px ;">
+                                                        <div class="gdlr-core-text-box-item-content">
+                                                            <p><?= $fieldDepartureTime?> Hours Before Start</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <?php
+                                }
+                                ?>
+
+                                <?php
+                                $fieldBedroom = $fieldService['bedroom'];
+                                if (!empty($fieldBedroom) || $fieldBedroom!=0){
+                                    ?>
+                                    <div class="gdlr-core-pbf-element">
+                                        <div class="gdlr-core-divider-item gdlr-core-divider-item-normal gdlr-core-item-pdlr gdlr-core-center-align" style="margin-bottom: 19px ;">
+                                            <div class="gdlr-core-divider-line gdlr-core-skin-divider"></div>
+                                        </div>
+                                    </div>
+                                    <div class="gdlr-core-pbf-column gdlr-core-column-30 gdlr-core-column-first">
+                                        <div class="gdlr-core-pbf-column-content-margin gdlr-core-js ">
+                                            <div class="gdlr-core-pbf-background-wrap"></div>
+                                            <div class="gdlr-core-pbf-column-content clearfix gdlr-core-js ">
+                                                <div class="gdlr-core-pbf-element">
+                                                    <div class="gdlr-core-title-item gdlr-core-item-pdb clearfix  gdlr-core-left-align gdlr-core-title-item-caption-top gdlr-core-item-pdlr" style="padding-bottom: 0px ;">
+                                                        <div class="gdlr-core-title-item-title-wrap">
+                                                            <h3 class="gdlr-core-title-item-title gdlr-core-skin-title" style="font-size: 15px ;font-weight: 500 ;letter-spacing: 0px ;text-transform: none ;">
+                                                                Bedroom<span class="gdlr-core-title-item-title-divider gdlr-core-skin-divider"></span>
+                                                            </h3>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="gdlr-core-pbf-column gdlr-core-column-30">
+                                        <div class="gdlr-core-pbf-column-content-margin gdlr-core-js ">
+                                            <div class="gdlr-core-pbf-column-content clearfix gdlr-core-js ">
+                                                <div class="gdlr-core-pbf-element">
+                                                    <div class="gdlr-core-text-box-item gdlr-core-item-pdlr gdlr-core-item-pdb gdlr-core-left-align" style="padding-bottom: 0px ;">
+                                                        <div class="gdlr-core-text-box-item-content" style="text-transform: none ;">
+                                                            <p><?= $fieldBedroom?> Bedrooms</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <?php
+                                }
+                                ?>
+
+                                <?php
+                                $fieldBathroom = $fieldService['bathroom'];
+                                if (!empty($fieldBathroom) || $fieldBathroom != 0){
+                                    ?>
+                                    <div class="gdlr-core-pbf-element">
+                                        <div class="gdlr-core-divider-item gdlr-core-divider-item-normal gdlr-core-item-pdlr gdlr-core-center-align" style="margin-bottom: 19px ;">
+                                            <div class="gdlr-core-divider-line gdlr-core-skin-divider"></div>
+                                        </div>
+                                    </div>
+                                    <div class="gdlr-core-pbf-column gdlr-core-column-30 gdlr-core-column-first">
+                                        <div class="gdlr-core-pbf-column-content-margin gdlr-core-js ">
+                                            <div class="gdlr-core-pbf-background-wrap"></div>
+                                            <div class="gdlr-core-pbf-column-content clearfix gdlr-core-js ">
+                                                <div class="gdlr-core-pbf-element">
+                                                    <div class="gdlr-core-title-item gdlr-core-item-pdb clearfix  gdlr-core-left-align gdlr-core-title-item-caption-top gdlr-core-item-pdlr" style="padding-bottom: 0px ;">
+                                                        <div class="gdlr-core-title-item-title-wrap">
+                                                            <h3 class="gdlr-core-title-item-title gdlr-core-skin-title" style="font-size: 15px ;font-weight: 500 ;letter-spacing: 0px ;text-transform: none ;">
+                                                                Bathroom<span class="gdlr-core-title-item-title-divider gdlr-core-skin-divider"></span>
+                                                            </h3>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="gdlr-core-pbf-column gdlr-core-column-30">
+                                        <div class="gdlr-core-pbf-column-content-margin gdlr-core-js ">
+                                            <div class="gdlr-core-pbf-column-content clearfix gdlr-core-js ">
+                                                <div class="gdlr-core-pbf-element">
+                                                    <div class="gdlr-core-text-box-item gdlr-core-item-pdlr gdlr-core-item-pdb gdlr-core-left-align" style="padding-bottom: 0px ;">
+                                                        <div class="gdlr-core-text-box-item-content" style="text-transform: none ;">
+                                                            <p><?= $fieldBathroom; ?> Bathrooms</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <?php
+                                }
                                 ?>
 
                                 <div class="gdlr-core-pbf-element">
@@ -598,7 +766,8 @@ get_header();
                                         <div class="gdlr-core-title-item-title-wrap">
                                             <h6 class="gdlr-core-title-item-title gdlr-core-skin-title" style="font-size: 24px ;font-weight: 600 ;letter-spacing: 0px ;text-transform: none ;">
                                                                 <span class="gdlr-core-title-item-left-icon" style="font-size: 18px ;">
-                                                                    <i class="icon_images" style="color: #1e1e1e ;"></i>
+<!--                                                                    <i class="icon_images" style="color: #1e1e1e ;"></i>-->
+                                                                    <i class="fa-light fa-image" style="color: #1e1e1e ;"></i>
                                                                 </span>
                                                 Photos<span class="gdlr-core-title-item-title-divider gdlr-core-skin-divider"></span>
                                             </h6>
@@ -612,8 +781,8 @@ get_header();
                                                 <?php foreach ($fieldImage as $item):?>
                                                     <li>
                                                         <div class="gdlr-core-gallery-list gdlr-core-media-image">
-                                                            <a class="gdlr-core-lightgallery gdlr-core-js " href="https://a6e8z9v6.stackpathcdn.com/traveltour/main4/wp-content/uploads/2017/01/shutterstock_764972821.jpg" data-lightbox-group="gdlr-core-img-group-1">
-                                                                <img src="<?= $item['url']; ?>" width="1500" height="1000" srcset="<?= $item['url']; ?> 400w, <?= $item['url']?> 600w, <?= $item['url']?> 800w, <?= $item['url']?> 1500w" sizes="(max-width: 767px) 100vw, (max-width: 1150px) 100vw, 1150px" alt=""/>
+                                                            <a class="gdlr-core-lightgallery gdlr-core-js " href="<?= $item['url']; ?>" data-lightbox-group="gdlr-core-img-group-1">
+                                                                <img src="<?= $item['url']; ?>" width="1500" height="1000" srcset="<?= $item['url']; ?> 400w, <?= $item['url']?> 600w, <?= $item['url']?> 800w, <?= $item['url']?> 1500w" sizes="(max-width: 767px) 100vw, (max-width: 1150px) 100vw, 1150px" alt="" style="max-height: 500px"/>
                                                                 <span class="gdlr-core-image-overlay "><i class="gdlr-core-image-overlay-icon  gdlr-core-size-22 fa fa-search"></i></span>
                                                             </a>
                                                         </div>
@@ -645,67 +814,28 @@ get_header();
                                     </div>
                                 </div>
                                 <div class="gdlr-core-pbf-element">
+                                    <?php
+                                    $fieldItinerary = get_field('itinerary', $obj->ID);
+                                    ?>
                                     <div class="gdlr-core-toggle-box-item gdlr-core-item-pdlr gdlr-core-item-pdb  gdlr-core-toggle-box-style-background-title gdlr-core-left-align" style="padding-bottom: 15px ;">
-                                        <div class="gdlr-core-toggle-box-item-tab clearfix  gdlr-core-active">
-                                            <div class="gdlr-core-toggle-box-item-icon gdlr-core-js gdlr-core-skin-icon "></div>
-                                            <div class="gdlr-core-toggle-box-item-content-wrapper">
-                                                <h4 class="gdlr-core-toggle-box-item-title gdlr-core-js  gdlr-core-skin-e-background gdlr-core-skin-e-content">
-                                                    <span class="gdlr-core-head">Day 1</span>
-                                                    Barcelona – Zaragoza – Madrid
-                                                </h4>
-                                                <div class="gdlr-core-toggle-box-item-content">
-                                                    <p>We’ll meet at 4 p.m. at our hotel in Luzern (Lucerne) for a “Welcome to Switzerland” meeting. Then we’ll take a meandering evening walk through Switzerland’s most charming lakeside town, and get acquainted with one another over dinner together. Sleep in Luzern (2 nights). No bus. Walking: light.</p>
+                                        <?php
+                                        foreach ($fieldItinerary as $item){
+                                            ?>
+                                            <div class="gdlr-core-toggle-box-item-tab clearfix  gdlr-core-active">
+                                                <div class="gdlr-core-toggle-box-item-icon gdlr-core-js gdlr-core-skin-icon "></div>
+                                                <div class="gdlr-core-toggle-box-item-content-wrapper">
+                                                    <h4 class="gdlr-core-toggle-box-item-title gdlr-core-js  gdlr-core-skin-e-background gdlr-core-skin-e-content">
+                                                        <span class="gdlr-core-head"><?= $item['time']; ?></span>
+                                                        <?= $item['title']; ?>
+                                                    </h4>
+                                                    <div class="gdlr-core-toggle-box-item-content">
+                                                        <p><?= $item['content']; ?></p>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="gdlr-core-toggle-box-item-tab clearfix  gdlr-core-active">
-                                            <div class="gdlr-core-toggle-box-item-icon gdlr-core-js gdlr-core-skin-icon "></div>
-                                            <div class="gdlr-core-toggle-box-item-content-wrapper">
-                                                <h4 class="gdlr-core-toggle-box-item-title gdlr-core-js  gdlr-core-skin-e-background gdlr-core-skin-e-content">
-                                                    <span class="gdlr-core-head">Day 2</span>
-                                                    Zürich–Biel/Bienne–Neuchâtel–Geneva
-                                                </h4>
-                                                <div class="gdlr-core-toggle-box-item-content">
-                                                    <p>Enjoy an orientation walk of Zurich’s OLD TOWN, Switzerland’s center of banking and commerce. Then, leave Zurich and start your Swiss adventure. You’ll quickly discover that Switzerland isn’t just home to the Alps, but also to some of the most beautiful lakes. First, stop at the foot of the Jura Mountains in the picturesque town of Biel, known as Bienne by French-speaking Swiss, famous for watch-making, and explore the historical center. Next, enjoy a scenic drive to lakeside Neuchâtel, dominated by the medieval cathedral and castle. Time to stroll along the lake promenade before continuing to stunning Geneva, the second-largest city in Switzerland, with its fantastic lakeside location and breathtaking panoramas of the Alps.</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="gdlr-core-toggle-box-item-tab clearfix  gdlr-core-active">
-                                            <div class="gdlr-core-toggle-box-item-icon gdlr-core-js gdlr-core-skin-icon "></div>
-                                            <div class="gdlr-core-toggle-box-item-content-wrapper">
-                                                <h4 class="gdlr-core-toggle-box-item-title gdlr-core-js  gdlr-core-skin-e-background gdlr-core-skin-e-content">
-                                                    <span class="gdlr-core-head">Day 3</span>
-                                                    Enchanting Engelberg
-                                                </h4>
-                                                <div class="gdlr-core-toggle-box-item-content">
-                                                    <p>Our morning drive takes us from Swiss lakes to Swiss Army. At the once-secret Swiss army bunker at Fortress Fürigen, we &#8217;ll see part of the massive defense system designed to keep Switzerland strong and neutral. Afterward, a short drive into the countryside brings us to the charming Alpine village of Engelberg, our picturesque home for the next two days. We &#8217;ll settle into our lodge then head out for an orientation walk. Our stroll through the village will end at the Engelberg Abbey, a Benedictine monastery with its own cheese-making operation. You &#8217;ll have free time to wander back before dinner together. Sleep in Engelberg (2 nights). Bus: 1 hr. Walking: light.</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="gdlr-core-toggle-box-item-tab clearfix  gdlr-core-active">
-                                            <div class="gdlr-core-toggle-box-item-icon gdlr-core-js gdlr-core-skin-icon "></div>
-                                            <div class="gdlr-core-toggle-box-item-content-wrapper">
-                                                <h4 class="gdlr-core-toggle-box-item-title gdlr-core-js  gdlr-core-skin-e-background gdlr-core-skin-e-content">
-                                                    <span class="gdlr-core-head">Day 4</span>
-                                                    Interlaken Area. Excursion to The Jungfrau Massif
-                                                </h4>
-                                                <div class="gdlr-core-toggle-box-item-content">
-                                                    <p>An unforgettable trip to the high Alpine wonderland of ice and snow is the true highlight of a visit to Switzerland. Globus Local Favorite At an amazing 11,332 feet, the JUNGFRAUJOCH is Europe’s highest railway station. Jungfrau’s 13,642-foot summit was first ascended in 1811 and in 1912 the rack railway was opened. There are lots of things to do here: enjoy the ALPINE SENSATION, THE PANORAMA 360° EXPERIENCE, and the ICE PALACE. Also receive your JUNGFRAU PASSPORT as a souvenir to take home with you. The round trip to the “Top of Europe” by MOUNTAIN TRAIN will take most of the day.</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="gdlr-core-toggle-box-item-tab clearfix  gdlr-core-active">
-                                            <div class="gdlr-core-toggle-box-item-icon gdlr-core-js gdlr-core-skin-icon "></div>
-                                            <div class="gdlr-core-toggle-box-item-content-wrapper">
-                                                <h4 class="gdlr-core-toggle-box-item-title gdlr-core-js  gdlr-core-skin-e-background gdlr-core-skin-e-content">
-                                                    <span class="gdlr-core-head">Day 5</span>
-                                                    Lake Geneva and Château de Chillon
-                                                </h4>
-                                                <div class="gdlr-core-toggle-box-item-content">
-                                                    <p>It &#8217;s market day in Lausanne! Enjoy browsing and packing a picnic lunch for our 11 a.m. boat cruise on Lake Geneva. A few miles down-shore we &#8217;ll dock at Château de Chillon, where we &#8217;ll have a guided tour of this delightfully medieval castle on the water. On our way back we &#8217;ll take time to peek into the vineyards surrounding Lutry before returning to Lausanne. Boat: 2 hrs. Bus: 1 hr. Walking: moderate.</p>
-                                                </div>
-                                            </div>
-                                        </div>
+                                            <?php
+                                        }
+                                        ?>
                                     </div>
                                 </div>
                             </div>
@@ -735,8 +865,17 @@ get_header();
                                 <div class="gdlr-core-pbf-element">
                                     <div class="gdlr-core-text-box-item gdlr-core-item-pdlr gdlr-core-item-pdb gdlr-core-left-align" style="padding-bottom: 25px ;">
                                         <div class="gdlr-core-text-box-item-content" style="text-transform: none ;">
-                                            <div class="">
-                                                <iframe src="https://www.google.com/maps/d/u/0/embed?mid=1nuWGDpjIP7w8FIej5ZjkaTYYYxVNQaA&ehbc=2E312F" width="100%" height="480"></iframe>
+                                            <div class="road-map">
+                                                <?php
+                                                $fieldMap = get_field('map', $obj->ID);
+                                                ?>
+                                                <?= $fieldMap; ?>
+                                                <style>
+                                                    .gdlr-core-text-box-item-content .road-map iframe{
+                                                        width: 100%;
+                                                        height: 480px;
+                                                    }
+                                                </style>
                                             </div>
                                         </div>
                                     </div>
@@ -764,50 +903,46 @@ get_header();
                                 </div>
                                 <div class="gdlr-core-pbf-element">
                                     <div class="gdlr-core-accordion-item gdlr-core-item-pdlr gdlr-core-item-pdb  gdlr-core-accordion-style-box-icon">
-                                        <div class="gdlr-core-accordion-item-tab clearfix  gdlr-core-active">
-                                            <div class="gdlr-core-accordion-item-icon gdlr-core-js gdlr-core-skin-icon  gdlr-core-skin-e-background gdlr-core-skin-border"></div>
-                                            <div class="gdlr-core-accordion-item-content-wrapper">
-                                                <h4 class="gdlr-core-accordion-item-title gdlr-core-js ">I'm a solo traveller, is there a single supplement?</h4>
-                                                <div class="gdlr-core-accordion-item-content">
-                                                    <p>A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart. I am alone, and feel the charm of existence in this spot, which was created for the bliss of souls like mine. I am so happy, my dear friend, so absorbed in the exquisite.</p>
+                                        <?php
+                                        $fieldFAQ = get_field('faq', $obj->ID);
+                                        ?>
+                                        <?php
+                                        $count = 1;
+                                        foreach ($fieldFAQ as $item){
+                                            if ($count == 1) {
+                                                $i = 1;
+                                                $count = 2;
+                                                ?>
+                                                <div class="gdlr-core-accordion-item-tab clearfix  gdlr-core-active">
+                                                    <div class="gdlr-core-accordion-item-icon gdlr-core-js gdlr-core-skin-icon  gdlr-core-skin-e-background gdlr-core-skin-border icon-<?= $i?>" data-id="<?= $i?>" >
+                                                        <i id="icon-<?= $i?>" class="fa-light fa-minus icon-check"></i>
+                                                    </div>
+                                                    <div class="gdlr-core-accordion-item-content-wrapper">
+                                                        <h4 class="gdlr-core-accordion-item-title gdlr-core-js "><?= $item['title']; ?></h4>
+                                                        <div class="gdlr-core-accordion-item-content">
+                                                            <p><?= $item['content']; ?></p>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </div>
-                                        <div class="gdlr-core-accordion-item-tab clearfix ">
-                                            <div class="gdlr-core-accordion-item-icon gdlr-core-js gdlr-core-skin-icon  gdlr-core-skin-e-background gdlr-core-skin-border"></div>
-                                            <div class="gdlr-core-accordion-item-content-wrapper">
-                                                <h4 class="gdlr-core-accordion-item-title gdlr-core-js ">Which currency is most widely accepted on this tour?</h4>
-                                                <div class="gdlr-core-accordion-item-content">
-                                                    <p>
-                                                        &#8211;Austria &#8211;Euro (EUR)<br/>
-                                                        &#8211;France &#8211;Euro (EUR)<br/>
-                                                        &#8211;Germany &#8211;Euro (EUR)<br/>
-                                                        &#8211;Italy &#8211;Euro (EUR)<br/>
-                                                        &#8211;Netherlands &#8211;Euro (EUR)<br/>
-                                                        &#8211;Switzerland &#8211;Swiss franc (CHF)<br/>&#8211;United Kingdom &#8211;Pound sterling (£)
-                                                    </p>
+                                                <?php
+                                            }else{
+                                                ?>
+                                                <div class="gdlr-core-accordion-item-tab clearfix">
+                                                    <div class="gdlr-core-accordion-item-icon gdlr-core-js gdlr-core-skin-icon  gdlr-core-skin-e-background gdlr-core-skin-border " data-id="<?= $i?>" >
+                                                        <i id="icon-<?= $i?>" class="fa-light fa-plus icon-check"></i>
+                                                    </div>
+                                                    <div class="gdlr-core-accordion-item-content-wrapper">
+                                                        <h4 class="gdlr-core-accordion-item-title gdlr-core-js "><?= $item['title']; ?></h4>
+                                                        <div class="gdlr-core-accordion-item-content">
+                                                            <p><?= $item['content']; ?></p>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </div>
-                                        <div class="gdlr-core-accordion-item-tab clearfix ">
-                                            <div class="gdlr-core-accordion-item-icon gdlr-core-js gdlr-core-skin-icon  gdlr-core-skin-e-background gdlr-core-skin-border"></div>
-                                            <div class="gdlr-core-accordion-item-content-wrapper">
-                                                <h4 class="gdlr-core-accordion-item-title gdlr-core-js ">Should I book pre/post tour accommodation?</h4>
-                                                <div class="gdlr-core-accordion-item-content">
-                                                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. A small river named Duden flows by their place and supplies it with the necessary regelialia. </p>
-                                                    <p>It is a paradisematic country, in which roasted parts of sentences fly into your mouth. Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however.</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="gdlr-core-accordion-item-tab clearfix ">
-                                            <div class="gdlr-core-accordion-item-icon gdlr-core-js gdlr-core-skin-icon  gdlr-core-skin-e-background gdlr-core-skin-border"></div>
-                                            <div class="gdlr-core-accordion-item-content-wrapper">
-                                                <h4 class="gdlr-core-accordion-item-title gdlr-core-js ">What is cancellation policy?</h4>
-                                                <div class="gdlr-core-accordion-item-content">
-                                                    <p>A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart. I am alone, and feel the charm of existence in this spot, which was created for the bliss of souls like mine. I am so happy, my dear friend, so absorbed in the exquisite.</p>
-                                                </div>
-                                            </div>
-                                        </div>
+                                                <?php
+                                            }
+                                            $i++;
+                                        }
+                                        ?>
                                     </div>
                                 </div>
                             </div>
@@ -825,143 +960,185 @@ get_header();
                 <div class="tourmaster-single-related-tour-container tourmaster-container">
                     <h3 class="tourmaster-single-related-tour-title tourmaster-item-pdlr">Related Tours</h3>
                     <div class="tourmaster-tour-item-holder clearfix ">
-                        <div class="gdlr-core-item-list  tourmaster-column-30 tourmaster-item-pdlr tourmaster-column-first">
-                            <div class="tourmaster-tour-grid  tourmaster-tour-grid-style-1 tourmaster-price-right-title">
-                                <div class="tourmaster-tour-grid-inner">
-                                    <div class="tourmaster-tour-thumbnail tourmaster-media-image ">
-                                        <a href="https://demo.goodlayers.com/traveltour/main4/tour/dubai-all-stunning-places/">
-                                            <img src="https://a6e8z9v6.stackpathcdn.com/traveltour/main4/wp-content/uploads/2017/01/shutterstock_758979559-700x430.jpg" width="700" height="430" srcset="https://a6e8z9v6.stackpathcdn.com/traveltour/main4/wp-content/uploads/2017/01/shutterstock_758979559-400x245.jpg 400w, https://a6e8z9v6.stackpathcdn.com/traveltour/main4/wp-content/uploads/2017/01/shutterstock_758979559-700x430.jpg 700w" sizes="(max-width: 767px) 100vw, (max-width: 1150px) 100vw, 1150px" alt=""/>
-                                        </a>
-                                    </div>
-                                    <div class="tourmaster-tour-content-wrap ">
-                                        <h3 class="tourmaster-tour-title gdlr-core-skin-title">
-                                            <a href="https://demo.goodlayers.com/traveltour/main4/tour/dubai-all-stunning-places/">Dubai &#8211;All Stunning Places</a>
-                                        </h3>
-                                        <div class="tourmaster-tour-price-wrap ">
-                                                            <span class="tourmaster-tour-price">
-                                                                <span class="tourmaster-head">From</span>
-                                                                <span class="tourmaster-tail">$1,200</span>
-                                                            </span>
-                                        </div>
-                                        <div class="tourmaster-tour-rating">
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <span class="tourmaster-tour-rating-text">(1 Review)</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="gdlr-core-item-list  tourmaster-column-30 tourmaster-item-pdlr">
-                            <div class="tourmaster-tour-grid  tourmaster-tour-grid-style-1 tourmaster-price-right-title">
-                                <div class="tourmaster-thumbnail-ribbon gdlr-core-outer-frame-element" style="color: #ffffff;background-color: #f97150;">
-                                    <div class="tourmaster-thumbnail-ribbon-cornor" style="border-right-color: rgba(249, 113, 80, 0.5);"></div>
-                                    Best Seller
-                                </div>
-                                <div class="tourmaster-tour-grid-inner">
-                                    <div class="tourmaster-tour-thumbnail tourmaster-media-image ">
-                                        <a class="gdlr-core-lightgallery gdlr-core-js " href="https://www.youtube.com/watch?v=eZjmjT5SLYs">
-                                            <div class="tourmaster-tour-thumbnail-overlay">
-                                                <i class="fa fa-film"></i>
+                        <?php
+                        $arrTourRelated = array(
+                            'post_type'=>'dia_diem_du_lich',
+                            'tax_query'=>array(
+                                'relation'=>'AND',
+                                array(
+                                    'taxonomy'=>'location',
+                                    'field'=>'slug',
+                                    'terms'=>$terms[0]->slug,
+                                ),
+                            ),
+                        );
+
+                        $listTourRelated = new WP_Query($arrTourRelated);
+                        ?>
+
+                        <?php
+                        $count = 1;
+                        foreach ($listTourRelated->posts as $item){
+                            $field = get_field('general_imformation', $item->ID);
+                            if ($count % 2 == 1) {
+                                ?>
+                                <div class="gdlr-core-item-list  tourmaster-column-30 tourmaster-item-pdlr tourmaster-column-first">
+                                    <div class="tourmaster-tour-grid  tourmaster-tour-grid-style-1 tourmaster-price-right-title">
+                                        <div class="tourmaster-tour-grid-inner">
+                                            <div class="tourmaster-tour-thumbnail tourmaster-media-image ">
+                                                <a href="<?= $item->guid; ?>">
+                                                    <img src="<?= get_the_post_thumbnail_url($item->ID)?>" width="700" height="430" srcset="<?= get_the_post_thumbnail_url($item->ID)?> 400w, <?= get_the_post_thumbnail_url($item->ID)?> 700w" sizes="(max-width: 767px) 100vw, (max-width: 1150px) 100vw, 1150px" alt=""/>
+                                                </a>
                                             </div>
-                                            <img src="https://a6e8z9v6.stackpathcdn.com/traveltour/main4/wp-content/uploads/2017/01/shutterstock_759608542-700x430.jpg" width="700" height="430" srcset="https://a6e8z9v6.stackpathcdn.com/traveltour/main4/wp-content/uploads/2017/01/shutterstock_759608542-400x245.jpg 400w, https://a6e8z9v6.stackpathcdn.com/traveltour/main4/wp-content/uploads/2017/01/shutterstock_759608542-700x430.jpg 700w" sizes="(max-width: 767px) 100vw, (max-width: 1150px) 100vw, 1150px" alt=""/>
-                                        </a>
-                                    </div>
-                                    <div class="tourmaster-tour-content-wrap ">
-                                        <h3 class="tourmaster-tour-title gdlr-core-skin-title">
-                                            <a href="https://demo.goodlayers.com/traveltour/main4/tour/venice-rome-and-milan-9-days-8-nights/">Venice, Rome and Milan &#8211;9 Days 8 Nights</a>
-                                        </h3>
-                                        <div class="tourmaster-tour-price-wrap tourmaster-discount">
-                                                            <span class="tourmaster-tour-price">
-                                                                <span class="tourmaster-head">From</span>
-                                                                <span class="tourmaster-tail">$4,300</span>
-                                                            </span>
-                                            <span class="tourmaster-tour-discount-price">$3,500</span>
-                                        </div>
-                                        <div class="tourmaster-tour-rating">
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <span class="tourmaster-tour-rating-text">(1 Review)</span>
+                                            <div class="tourmaster-tour-content-wrap ">
+                                                <h3 class="tourmaster-tour-title gdlr-core-skin-title">
+                                                    <a href="<?= $item->guid?>"><?= $item->post_title; ?></a>
+                                                </h3>
+                                                <?php if (empty($field['old_price'])):?>
+                                                    <div class="tourmaster-tour-price-wrap">
+                                                                        <span class="tourmaster-tour-price">
+                                                                            <span class="tourmaster-head">From</span>
+                                                                            <span class="tourmaster-tail">$<?= $field['save_price']?></span>
+                                                                        </span>
+                                                    </div>
+                                                <?php else:?>
+                                                    <div class="tourmaster-tour-price-wrap tourmaster-discount">
+                                                                        <span class="tourmaster-tour-price">
+                                                                            <span class="tourmaster-head">From</span>
+                                                                            <span class="tourmaster-tail">$<?= $field['old_price']?></span>
+                                                                            </span>
+                                                        <span class="tourmaster-tour-discount-price">$<?= $field['save_price']?></span>
+                                                    </div>
+                                                <?php endif;?>
+                                                <div class="tourmaster-tour-rating">
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <span class="tourmaster-tour-rating-text"></span>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
+                                <?php
+                            }else{
+                                ?>
+                                <div class="gdlr-core-item-list  tourmaster-column-30 tourmaster-item-pdlr">
+                                    <div class="tourmaster-tour-grid  tourmaster-tour-grid-style-1 tourmaster-price-right-title">
+<!--                                        <div class="tourmaster-thumbnail-ribbon gdlr-core-outer-frame-element" style="color: #ffffff;background-color: #f97150;">-->
+<!--                                            <div class="tourmaster-thumbnail-ribbon-cornor" style="border-right-color: rgba(249, 113, 80, 0.5);"></div>-->
+<!--                                            Best Seller-->
+<!--                                        </div>-->
+                                        <div class="tourmaster-tour-grid-inner">
+                                            <div class="tourmaster-tour-thumbnail tourmaster-media-image ">
+                                                <a href="<?= $item->guid; ?>">
+                                                    <img src="<?= get_the_post_thumbnail_url($item->ID)?>" width="700" height="430" srcset="<?= get_the_post_thumbnail_url($item->ID)?> 400w, <?= get_the_post_thumbnail_url($item->ID)?> 700w" sizes="(max-width: 767px) 100vw, (max-width: 1150px) 100vw, 1150px" alt=""/>
+                                                </a>
+                                            </div>
+                                            <div class="tourmaster-tour-content-wrap ">
+                                                <h3 class="tourmaster-tour-title gdlr-core-skin-title">
+                                                    <a href="<?= $item->guid?>"><?= $item->post_title; ?></a>
+                                                </h3>
+                                                <?php if (empty($field['old_price'])):?>
+                                                    <div class="tourmaster-tour-price-wrap">
+                                                                        <span class="tourmaster-tour-price">
+                                                                            <span class="tourmaster-head">From</span>
+                                                                            <span class="tourmaster-tail">$<?= $field['save_price']?></span>
+                                                                        </span>
+                                                    </div>
+                                                <?php else:?>
+                                                    <div class="tourmaster-tour-price-wrap tourmaster-discount">
+                                                                        <span class="tourmaster-tour-price">
+                                                                            <span class="tourmaster-head">From</span>
+                                                                            <span class="tourmaster-tail">$<?= $field['old_price']?></span>
+                                                                            </span>
+                                                        <span class="tourmaster-tour-discount-price">$<?= $field['save_price']?></span>
+                                                    </div>
+                                                <?php endif;?>
+                                                <div class="tourmaster-tour-rating">
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <span class="tourmaster-tour-rating-text"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <?php
+                            }
+                            $count++;
+                        }
+                        ?>
                     </div>
                 </div>
             </div>
-            <div class="tourmaster-single-review-container tourmaster-container">
-                <div class="tourmaster-single-review-item tourmaster-item-pdlr">
-                    <div class="tourmaster-single-review" id="tourmaster-single-review">
-                        <div class="tourmaster-single-review-head clearfix">
-                            <div class="tourmaster-single-review-head-info clearfix">
-                                <div class="tourmaster-tour-rating">
-                                    <span class="tourmaster-tour-rating-text">1 Review</span>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                </div>
-                                <div class="tourmaster-single-review-filter" id="tourmaster-single-review-filter">
-                                    <div class="tourmaster-single-review-sort-by">
-                                        <span class="tourmaster-head">Sort By:</span>
-                                        <span class="tourmaster-sort-by-field" data-sort-by="rating">Rating</span>
-                                        <span class="tourmaster-sort-by-field tourmaster-active" data-sort-by="date">Date</span>
-                                    </div>
-                                    <div class="tourmaster-single-review-filter-by tourmaster-form-field tourmaster-with-border">
-                                        <div class="tourmaster-combobox-wrap">
-                                            <select id="tourmaster-filter-by">
-                                                <option value="">Filter By</option>
-                                                <option value="solo">Solo</option>
-                                                <option value="couple">Couple</option>
-                                                <option value="family">Family</option>
-                                                <option value="group">Group</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="tourmaster-single-review-content" id="tourmaster-single-review-content" data-tour-id="4649" data-ajax-url="https://demo.goodlayers.com/traveltour/main4/wp-admin/admin-ajax.php">
-                            <div class="tourmaster-single-review-content-item clearfix">
-                                <div class="tourmaster-single-review-user clearfix">
-                                    <div class="tourmaster-single-review-avatar tourmaster-media-image">
-                                        <img alt='' src='https://secure.gravatar.com/avatar/e9fb3348941be9d33fa944e0c6441345?s=85&#038;d=mm&#038;r=g' srcset='https://secure.gravatar.com/avatar/e9fb3348941be9d33fa944e0c6441345?s=170&#038;d=mm&#038;r=g 2x' class='avatar avatar-85 photo' height='85' width='85' loading='lazy' decoding='async'/>
-                                    </div>
-                                    <h4 class="tourmaster-single-review-user-name">Jenny Doe</h4>
-                                    <div class="tourmaster-single-review-user-type">Couple Traveller</div>
-                                </div>
-                                <div class="tourmaster-single-review-detail">
-                                    <div class="tourmaster-single-review-detail-description">
-                                        <p>Very nice city</p>
-                                    </div>
-                                    <div class="tourmaster-single-review-detail-rating">
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                    </div>
-                                    <div class="tourmaster-single-review-detail-date">April 4, 2019</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+<!--            <div class="tourmaster-single-review-container tourmaster-container">-->
+<!--                <div class="tourmaster-single-review-item tourmaster-item-pdlr">-->
+<!--                    <div class="tourmaster-single-review" id="tourmaster-single-review">-->
+<!--                        <div class="tourmaster-single-review-head clearfix">-->
+<!--                            <div class="tourmaster-single-review-head-info clearfix">-->
+<!--                                <div class="tourmaster-tour-rating">-->
+<!--                                    <span class="tourmaster-tour-rating-text">1 Review</span>-->
+<!--                                    <i class="fa fa-star"></i>-->
+<!--                                    <i class="fa fa-star"></i>-->
+<!--                                    <i class="fa fa-star"></i>-->
+<!--                                    <i class="fa fa-star"></i>-->
+<!--                                    <i class="fa fa-star"></i>-->
+<!--                                </div>-->
+<!--                                <div class="tourmaster-single-review-filter" id="tourmaster-single-review-filter">-->
+<!--                                    <div class="tourmaster-single-review-sort-by">-->
+<!--                                        <span class="tourmaster-head">Sort By:</span>-->
+<!--                                        <span class="tourmaster-sort-by-field" data-sort-by="rating">Rating</span>-->
+<!--                                        <span class="tourmaster-sort-by-field tourmaster-active" data-sort-by="date">Date</span>-->
+<!--                                    </div>-->
+<!--                                    <div class="tourmaster-single-review-filter-by tourmaster-form-field tourmaster-with-border">-->
+<!--                                        <div class="tourmaster-combobox-wrap">-->
+<!--                                            <select id="tourmaster-filter-by">-->
+<!--                                                <option value="">Filter By</option>-->
+<!--                                                <option value="solo">Solo</option>-->
+<!--                                                <option value="couple">Couple</option>-->
+<!--                                                <option value="family">Family</option>-->
+<!--                                                <option value="group">Group</option>-->
+<!--                                            </select>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="tourmaster-single-review-content" id="tourmaster-single-review-content" data-tour-id="4649" data-ajax-url="https://demo.goodlayers.com/traveltour/main4/wp-admin/admin-ajax.php">-->
+<!--                            <div class="tourmaster-single-review-content-item clearfix">-->
+<!--                                <div class="tourmaster-single-review-user clearfix">-->
+<!--                                    <div class="tourmaster-single-review-avatar tourmaster-media-image">-->
+<!--                                        <img alt='' src='https://secure.gravatar.com/avatar/e9fb3348941be9d33fa944e0c6441345?s=85&#038;d=mm&#038;r=g' srcset='https://secure.gravatar.com/avatar/e9fb3348941be9d33fa944e0c6441345?s=170&#038;d=mm&#038;r=g 2x' class='avatar avatar-85 photo' height='85' width='85' loading='lazy' decoding='async'/>-->
+<!--                                    </div>-->
+<!--                                    <h4 class="tourmaster-single-review-user-name">Jenny Doe</h4>-->
+<!--                                    <div class="tourmaster-single-review-user-type">Couple Traveller</div>-->
+<!--                                </div>-->
+<!--                                <div class="tourmaster-single-review-detail">-->
+<!--                                    <div class="tourmaster-single-review-detail-description">-->
+<!--                                        <p>Very nice city</p>-->
+<!--                                    </div>-->
+<!--                                    <div class="tourmaster-single-review-detail-rating">-->
+<!--                                        <i class="fa fa-star"></i>-->
+<!--                                        <i class="fa fa-star"></i>-->
+<!--                                        <i class="fa fa-star"></i>-->
+<!--                                        <i class="fa fa-star"></i>-->
+<!--                                        <i class="fa fa-star"></i>-->
+<!--                                    </div>-->
+<!--                                    <div class="tourmaster-single-review-detail-date">April 4, 2019</div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
         </div>
     </div>
-    <!-- <div class="tourmaster-urgency-message" id="tourmaster-urgency-message" data-expire="86400">
-        <i class="tourmaster-urgency-message-icon fa fa-users"></i>
-        <div class="tourmaster-urgency-message-text">5 travellers are considering this tour right now!</div>
-    </div> -->
 </div>
 
 <?php

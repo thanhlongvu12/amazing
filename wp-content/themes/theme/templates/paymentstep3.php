@@ -6,6 +6,41 @@
  * Time: 9:29 AM
  * Template Name: Payment Step 3
  */
+
+$uri = get_template_directory_uri();
+
+$tourID = $_GET['tour-id'];
+$numPeople = $_GET['number-people'];
+
+$arrTravellerTiler = array();
+$arrTravellerFirstName = array();
+$arrTravellerLastName = array();
+$arrTravellerAge = array();
+$arrTravellerPhone = array();
+for ($i=0; $i<$numPeople; $i++){
+    array_push($arrTravellerTiler, $_GET['traveller_title'][$i]);
+    array_push($arrTravellerFirstName, $_GET['traveller_first_name'][$i]);
+    array_push($arrTravellerLastName, $_GET['traveller_last_name'][$i]);
+    array_push($arrTravellerAge, $_GET['traveller_age'][$i]);
+    array_push($arrTravellerPhone, $_GET['traveller_phone'][$i]);
+}
+
+
+$firstName = $_GET['first_name'];
+$lastName = $_GET['last_name'];
+$phone = $_GET['phone'];
+$email = $_GET['email'];
+$country = $_GET['country'];
+$address = $_GET['contact_address'];
+$notes = $_GET['additional_notes'];
+
+$tour = get_post($tourID);
+
+$fieldInformation = get_field('general_imformation', $tourID);
+
+$fieldTour = get_field('imformation_tour', $tourID);
+
+
 get_header();
 ?>
 
@@ -17,7 +52,7 @@ get_header();
             <div class="tourmaster-payment-head-overlay"></div>
             <div class="tourmaster-payment-head-top-overlay"></div>
             <div class="tourmaster-payment-title-container tourmaster-container">
-                <h1 class="tourmaster-payment-title tourmaster-item-pdlr">Venice, Rome and Milan &#8211; 9 Days 8 Nights</h1>
+                <h1 class="tourmaster-payment-title tourmaster-item-pdlr"><?= $tour->post_title; ?></h1>
             </div>
             <div class="tourmaster-payment-step-wrap" id="tourmaster-payment-step-wrap">
                 <div class="tourmaster-payment-step-overlay"></div>
@@ -31,56 +66,48 @@ get_header();
                 </div>
             </div>
         </div>
-        <div class="tourmaster-template-wrapper" id="tourmaster-payment-template-wrapper" data-ajax-url="https://demo.goodlayers.com/traveltour/main4/wp-admin/admin-ajax.php" data-booking-detail="{&quot;tour-id&quot;:&quot;4647&quot;,&quot;tour-date&quot;:&quot;2023-06-08&quot;,&quot;tour-room&quot;:&quot;1&quot;,&quot;tour-adult&quot;:[&quot;2&quot;,&quot;&quot;],&quot;tour-children&quot;:[&quot;&quot;,&quot;&quot;],&quot;coupon-code&quot;:&quot;&quot;,&quot;payment-type&quot;:&quot;full&quot;,&quot;traveller_title&quot;:[&quot;mr&quot;,&quot;mr&quot;],&quot;traveller_first_name&quot;:[&quot;Vu&quot;,&quot;Vu&quot;],&quot;traveller_last_name&quot;:[&quot;Long&quot;,&quot;Long&quot;],&quot;traveller_passport&quot;:[&quot;1000000&quot;,&quot;10000000&quot;],&quot;traveller_age&quot;:[&quot;18+ 20&quot;,&quot;18+ 20&quot;],&quot;traveller_phone&quot;:[&quot;0376708102&quot;,&quot;0376708102&quot;],&quot;first_name&quot;:&quot;Th\u00e0nh Long&quot;,&quot;last_name&quot;:&quot;V\u0169&quot;,&quot;email&quot;:&quot;eodangcap1@gmail.com&quot;,&quot;phone&quot;:&quot;0376708102&quot;,&quot;country&quot;:&quot;United States of America (USA)&quot;,&quot;contact_address&quot;:&quot;h\u00e0 n\u00f4i&quot;,&quot;billing_first_name&quot;:&quot;Th\u00e0nh Long&quot;,&quot;billing_last_name&quot;:&quot;V\u0169&quot;,&quot;billing_email&quot;:&quot;eodangcap1@gmail.com&quot;,&quot;billing_phone&quot;:&quot;0376708102&quot;,&quot;billing_country&quot;:&quot;United States of America (USA)&quot;,&quot;billing_contact_address&quot;:&quot;h\u00e0 n\u00f4i&quot;,&quot;additional_notes&quot;:&quot;&quot;,&quot;step&quot;:&quot;3&quot;,&quot;service&quot;:[&quot;5217&quot;,&quot;5216&quot;,&quot;0&quot;,&quot;0&quot;],&quot;service-amount&quot;:[&quot;1&quot;,&quot;1&quot;,&quot;1&quot;,&quot;1&quot;],&quot;term-and-service&quot;:&quot;0&quot;}">
+        <div class="tourmaster-template-wrapper" id="tourmaster-payment-template-wrapper">
             <div class="tourmaster-container">
                 <div class="tourmaster-page-content tourmaster-item-pdlr clearfix tourmaster-template-payment">
                     <div class="tourmaster-tour-booking-bar-wrap" id="tourmaster-tour-booking-bar-wrap">
                         <div class="tourmaster-tour-booking-bar-outer">
                             <div class="tourmaster-tour-booking-bar-inner" id="tourmaster-tour-booking-bar-inner">
                                 <div class="tourmaster-tour-booking-bar-summary">
-                                    <h3 class="tourmaster-tour-booking-bar-summary-title">Venice, Rome and Milan &#8211; 9 Days 8 Nights</h3>
-                                    <div class="tourmaster-tour-booking-bar-summary-info tourmaster-summary-travel-date"><span class="tourmaster-head">Travel Date : </span><span class="tourmaster-tail">June 8, 2023</span></div>
-                                    <div class="tourmaster-tour-booking-bar-summary-info tourmaster-summary-end-date"><span class="tourmaster-head">End Date : </span><span class="tourmaster-tail">June 14, 2023</span></div>
-                                    <div class="tourmaster-tour-booking-bar-summary-info tourmaster-summary-period"><span class="tourmaster-head">Period : </span><span class="tourmaster-tail">7 Days</span></div>
-                                    <div class="tourmaster-tour-booking-bar-summary-room-wrap clearfix">
-                                        <div class="tourmaster-tour-booking-bar-summary-room">
-                                            <div class="tourmaster-tour-booking-bar-summary-room-text">Room 1</div>
-                                            <div class="tourmaster-tour-booking-bar-summary-people tourmaster-variable clearfix">
-                                                <div class="tourmaster-tour-booking-bar-summary-people-amount tourmaster-adult"><span class="tourmaster-head">Adult : </span><span class="tourmaster-tail">2</span></div>
-                                                <div class="tourmaster-tour-booking-bar-summary-people-amount tourmaster-children"><span class="tourmaster-head">Children : </span><span class="tourmaster-tail">0</span></div>
-                                            </div>
-                                        </div>
+                                    <h3 class="tourmaster-tour-booking-bar-summary-title"><?= $tour->post_title; ?></h3>
+                                    <div class="tourmaster-tour-booking-bar-summary-info tourmaster-summary-travel-date">
+                                        <span class="tourmaster-head">Travel Date : </span>
+                                        <span class="tourmaster-tail">
+                                            <?= $fieldTour['tour_start']; ?>
+                                            ( <span class="tourmaster-tour-booking-bar-date-edit" id="editSpan">edit</span> )
+                                            <form class="tourmaster-tour-booking-temp" id="myForm" action="<?= $tour->guid; ?>" method="post">
+
+                                            </form>
+                                        </span>
+                                    </div>
+                                    <div class="tourmaster-tour-booking-bar-summary-people-wrap">
+                                        <div class="tourmaster-tour-booking-bar-summary-people-amount"><span class="tourmaster-head">Traveller : </span><span class="tourmaster-tail"><?= $numPeople; ?></span></div>
                                     </div>
                                     <div class="tourmaster-tour-booking-bar-price-breakdown-wrap"><span class="tourmaster-tour-booking-bar-price-breakdown-link" id="tourmaster-tour-booking-bar-price-breakdown-link">View Price Breakdown</span>
                                         <div class="tourmaster-price-breakdown">
                                             <div class="tourmaster-price-breakdown-base-price-wrap">
-                                                <div class="tourmaster-price-breakdown-base-price"><span class="tourmaster-head">Adult Base Price</span><span class="tourmaster-tail"><span class="tourmaster-price-detail">2 x $1,700</span><span class="tourmaster-price">$3,400.00</span></span></div>
-                                            </div>
-                                            <div class="tourmaster-price-breakdown-room">
-                                                <div class="tourmaster-price-breakdown-room-head"><span class="tourmaster-head">Room 1 :</span><span class="tourmaster-tail">2 Adult </span></div>
-                                                <div class="tourmaster-price-breakdown-room-price"><span class="tourmaster-head">Room Base Price :</span><span class="tourmaster-tail tourmaster-right">$1,800.00</span></div>
-                                            </div>
-                                            <div class="tourmaster-price-breakdown-additional-service">
-                                                <h3 class="tourmaster-price-breakdown-additional-service-title">Additional Services</h3>
-                                                <div class="tourmaster-price-breakdown-additional-service-item clearfix"><span class="tourmaster-head">Cleaning fee (1 x $9) </span><span class="tourmaster-tail tourmaster-right">$9.00</span></div>
-                                                <div class="tourmaster-price-breakdown-additional-service-item clearfix"><span class="tourmaster-head">Tip for tour guide (2 x $20) </span><span class="tourmaster-tail tourmaster-right">$40.00</span></div>
+                                                <div class="tourmaster-price-breakdown-base-price"><span class="tourmaster-head">Adult Base Price</span><span class="tourmaster-tail"><span class="tourmaster-price-detail"><?= $numPeople?> x $<?= $fieldInformation['save_price']?></span><span class="tourmaster-price">$<?= ($numPeople * $fieldInformation['save_price']); ?></span></span></div>
                                             </div>
                                             <div class="tourmaster-price-breakdown-summary">
-                                                <div class="tourmaster-price-breakdown-sub-total "><span class="tourmaster-head">Sub Total Price</span><span class="tourmaster-tail tourmaster-right">$5,249.00</span></div>
-                                                <div class="tourmaster-price-breakdown-tax-rate"><span class="tourmaster-head">Tax Rate</span><span class="tourmaster-tail tourmaster-right">9%</span></div>
-                                                <div class="tourmaster-price-breakdown-tax-due"><span class="tourmaster-head">Tax Due</span><span class="tourmaster-tail tourmaster-right">$472.41</span></div>
+                                                <div class="tourmaster-price-breakdown-sub-total "><span class="tourmaster-head">Sub Total Price</span><span class="tourmaster-tail tourmaster-right">$<?= $total = ($numPeople * $fieldInformation['save_price']); ?></span></div>
+                                                <div class="tourmaster-price-breakdown-tax-rate"><span class="tourmaster-head">Tax Rate</span><span class="tourmaster-tail tourmaster-right"><?= $fieldInformation['tax']; ?>%</span></div>
+                                                <div class="tourmaster-price-breakdown-tax-due"><span class="tourmaster-head">Tax Due</span><span class="tourmaster-tail tourmaster-right">$<?= $tax = ($total*$fieldInformation['tax'])/100 ;?></span></div>
                                             </div>
                                             <div class="clear"></div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="tourmaster-tour-booking-bar-total-price-wrap "><input type="hidden" name="payment-type" value="full" />
-                                    <div class="tourmaster-tour-booking-bar-total-price-container"><i class="icon_tag_alt"></i><span class="tourmaster-tour-booking-bar-total-price-title">Total Price</span><span class="tourmaster-tour-booking-bar-total-price">$5,721.41</span></div>
+                                    <div class="tourmaster-tour-booking-bar-total-price-container"><i class="icon_tag_alt"></i><span class="tourmaster-tour-booking-bar-total-price-title">Total Price</span><span class="tourmaster-tour-booking-bar-total-price"><?= $totalPrice = $total + $tax; ?></span></div>
                                 </div>
-                                <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
-                                <script>
-                                    window.tourmaster_total_price = "5721.41"
-                                </script>
+<!--                                <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>-->
+<!--                                <script>-->
+<!--                                    window.tourmaster_total_price = "5721.41"-->
+<!--                                </script>-->
                             </div>
                         </div>
                         <div class="tourmaster-tour-booking-bar-widget  traveltour-sidebar-area">
@@ -127,27 +154,31 @@ get_header();
                             <div class="tourmaster-payment-contact-detail-wrap clearfix tourmaster-item-rvpdlr">
                                 <div class="tourmaster-payment-detail-wrap tourmaster-payment-contact-detail tourmaster-item-pdlr">
                                     <h3 class="tourmaster-payment-detail-title"><i class="fa fa-file-text-o"></i>Contact Details</h3>
-                                    <div class="tourmaster-payment-detail"><span class="tourmaster-head">First Name :</span><span class="tourmaster-tail">Thành Long</span></div>
-                                    <div class="tourmaster-payment-detail"><span class="tourmaster-head">Last Name :</span><span class="tourmaster-tail">Vũ</span></div>
-                                    <div class="tourmaster-payment-detail"><span class="tourmaster-head">Email :</span><span class="tourmaster-tail"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="0f6a606b6e61686c6e7f3e4f68626e6663216c6062">[email&#160;protected]</a></span></div>
-                                    <div class="tourmaster-payment-detail"><span class="tourmaster-head">Phone :</span><span class="tourmaster-tail">0376708102</span></div>
-                                    <div class="tourmaster-payment-detail"><span class="tourmaster-head">Country :</span><span class="tourmaster-tail">United States of America (USA)</span></div>
-                                    <div class="tourmaster-payment-detail"><span class="tourmaster-head">Address :</span><span class="tourmaster-tail">hà nôi</span></div>
-                                </div>
-                                <div class="tourmaster-payment-detail-wrap tourmaster-payment-billing-detail tourmaster-item-pdlr">
-                                    <h3 class="tourmaster-payment-detail-title"><i class="fa fa-file-text-o"></i>Billing Details</h3>
-                                    <div class="tourmaster-payment-detail"><span class="tourmaster-head">First Name :</span><span class="tourmaster-tail">Thành Long</span></div>
-                                    <div class="tourmaster-payment-detail"><span class="tourmaster-head">Last Name :</span><span class="tourmaster-tail">Vũ</span></div>
-                                    <div class="tourmaster-payment-detail"><span class="tourmaster-head">Email :</span><span class="tourmaster-tail"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="5d3832393c333a3e3c2d6c1d3a303c3431733e3230">[email&#160;protected]</a></span></div>
-                                    <div class="tourmaster-payment-detail"><span class="tourmaster-head">Phone :</span><span class="tourmaster-tail">0376708102</span></div>
-                                    <div class="tourmaster-payment-detail"><span class="tourmaster-head">Country :</span><span class="tourmaster-tail">United States of America (USA)</span></div>
-                                    <div class="tourmaster-payment-detail"><span class="tourmaster-head">Address :</span><span class="tourmaster-tail">hà nôi</span></div>
+                                    <div class="tourmaster-payment-detail"><span class="tourmaster-head">First Name :</span><span class="tourmaster-tail"><?= $firstName; ?></span></div>
+                                    <div class="tourmaster-payment-detail"><span class="tourmaster-head">Last Name :</span><span class="tourmaster-tail"><?= $lastName?></span></div>
+                                    <div class="tourmaster-payment-detail"><span class="tourmaster-head">Email :</span><span class="tourmaster-tail"><?= $email; ?></span></div>
+                                    <div class="tourmaster-payment-detail"><span class="tourmaster-head">Phone :</span><span class="tourmaster-tail"><?= $phone; ?></span></div>
+                                    <div class="tourmaster-payment-detail"><span class="tourmaster-head">Country :</span><span class="tourmaster-tail"><?= $country; ?></span></div>
+                                    <div class="tourmaster-payment-detail"><span class="tourmaster-head">Address :</span><span class="tourmaster-tail"><?= $address; ?></span></div>
                                 </div>
                             </div>
                             <div class="tourmaster-payment-traveller-detail">
                                 <h3 class="tourmaster-payment-detail-title"><i class="fa fa-file-text-o"></i>Traveller Details</h3>
-                                <div class="tourmaster-payment-detail clearfix"><span class="tourmaster-head">Traveller 1 :</span><span class="tourmaster-tail">Mr Vu Long<br>Passport ID : 1000000<br>Age 18+ 20<br>Phone 0376708102</span></div>
-                                <div class="tourmaster-payment-detail clearfix"><span class="tourmaster-head">Traveller 2 :</span><span class="tourmaster-tail">Mr Vu Long<br>Passport ID : 10000000<br>Age 18+ 20<br>Phone 0376708102</span></div>
+                                <?php
+                                for ($i=0; $i<$numPeople; $i++){
+                                    ?>
+                                    <div class="tourmaster-payment-detail clearfix">
+                                        <span class="tourmaster-head">Traveller <?= $i+1;?> :</span>
+                                        <span class="tourmaster-tail">
+                                            <?= $arrTravellerTiler[$i]?>
+                                            <?= $arrTravellerFirstName[$i]?>
+                                            <?= $arrTravellerLastName[$i]?><br>
+                                            Age <?= $arrTravellerAge[$i]?><br>
+                                            Phone <?= $arrTravellerPhone[$i]; ?></span>
+                                    </div>
+                                    <?php
+                                }
+                                ?>
                             </div>
                         </div>
                         <div class="tourmaster-payment-method-wrap  tourmaster-none-online-payment">
@@ -156,10 +187,15 @@ get_header();
                             <div class="tourmaster-payment-terms"><input type="checkbox" name="term-and-service" />* I agree with <a href="#" target="_blank">Terms of Service</a> and <a href="#" target="_blank">Privacy Statement</a>.<div class="tourmaster-tour-booking-required-error tourmaster-notification-box tourmaster-failure" data-default="Please agree to all the terms and conditions before proceeding to the next step."></div>
                             </div>
                             <div class="tourmaster-payment-gateway clearfix">
-                                <div class="tourmaster-online-payment-method tourmaster-payment-woocommerce tourmaster-center-align"><a class="tourmaster-button " data-method="ajax" data-action="tourmaster_payment_selected" data-ajax="https://demo.goodlayers.com/traveltour/main4/wp-admin/admin-ajax.php" data-action-type="woocommerce">Pay Now</a></div>
+                                <div class="tourmaster-online-payment-method tourmaster-payment-woocommerce tourmaster-center-align"><a class="tourmaster-button " data-method="ajax" data-action="tourmaster_payment_selected">Pay Now</a></div>
                             </div>
                             <div class="tourmaster-payment-method-or" id="tourmaster-payment-method-or"><span class="tourmaster-left"></span><span class="tourmaster-middle">OR</span><span class="tourmaster-right"></span></div>
-                            <div class="tourmaster-payment-method-booking"><a class="tourmaster-button tourmaster-payment-method-booking-button tourmaster-payment-step" data-name="payment-method" data-value="booking" data-step="4">Book and pay later</a></div>
+<!--                            <div class="tourmaster-payment-method-booking" style="background-color: #f97150">Book and pay later</div>-->
+                            <div class="tourmaster-payment-method-booking"><a class="tourmaster-button tourmaster-payment-method-booking-button tourmaster-payment-step">Book and pay later</a></div>
+                            <?php
+//                            $bookTour = '[contact-form-7 id="447" title="Book And Pay Later"]';
+//                            echo do_shortcode($bookTour);
+                            ?>
                         </div>
                     </div>
                 </div>
@@ -168,6 +204,51 @@ get_header();
     </div>
 </div>
 
+<form action="<?= get_permalink(getIdPage('onepay')); ?>" method="post" id="payment-onepay">
+    <input type="hidden" name="full-name" value="<?= $firstName .' '. $lastName; ?>">
+    <input type="hidden" name="email" value="<?= $email; ?>">
+    <input type="hidden" name="phone" value="<?= $phone; ?>">
+    <input type="hidden" name="address" value="<?= $address; ?>">
+    <input type="hidden" name="notes" value="<?= $notes; ?>">
+    <input type="hidden" name="member" value="<?= $numPeople; ?>">
+    <input type="hidden" name="id-tour" value="<?= $tourID; ?>">
+    <input type="hidden" name="tour-name" value="<?= $tour->post_title; ?>">
+    <input type="hidden" name="tour-date" value="<?= $fieldTour['tour_start'];?>">
+    <input type="hidden" name="price-tour" value="<?= $totalPrice; ?>">
+    <input type="hidden" name="vpc_TicketNo" value="<?php echo $_SERVER ['REMOTE_ADDR']; ?>">
+</form>
+
+<form role="form" method="post" id="form-booking-lated" action="<?= get_permalink(getIdPage('send')); ?>">
+    <input type="hidden" name="full-name" value="<?= $firstName .' '. $lastName; ?>">
+    <input type="hidden" name="email" value="<?= $email; ?>">
+    <input type="hidden" name="phone" value="<?= $phone; ?>">
+    <input type="hidden" name="address" value="<?= $address; ?>">
+    <input type="hidden" name="notes" value="<?= $notes; ?>">
+    <input type="hidden" name="member" value="<?= $numPeople; ?>">
+    <input type="hidden" name="id-tour" value="<?= $tourID; ?>">
+    <input type="hidden" name="tour-name" value="<?= $tour->post_title; ?>">
+    <input type="hidden" name="tour-date" value="<?= $fieldTour['tour_start'];?>">
+    <input type="hidden" name="price-tour" value="<?= $totalPrice; ?>">
+</form>
+
 <?php
 get_footer();
+
 ?>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+
+        $('.tourmaster-online-payment-method').on('click', function() {
+            $('#payment-onepay').submit();
+        });
+
+        $('.tourmaster-payment-method-booking').on('click', function() {
+            $('#form-booking-lated').submit();
+        });
+
+        $('#tourmaster-tour-booking-bar-price-breakdown-link').click(function() {
+            $(this).siblings('.tourmaster-price-breakdown').slideToggle(200);
+        });
+    });
+</script>

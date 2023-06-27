@@ -156,7 +156,7 @@ $evaluate = get_field('danh_gia', $ID);
                     </div>
                     <div class="gdlr-core-pbf-element">
                         <div class="gdlr-core-button-item gdlr-core-item-pdlr gdlr-core-item-pdb gdlr-core-center-align" style="padding-bottom: 52px ;">
-                            <a class="gdlr-core-button  gdlr-core-button-transparent gdlr-core-center-align gdlr-core-button-no-border" href="/traveltour/main4/destinations/" style="font-size: 15px ;font-weight: 400 ;letter-spacing: 0px ;color: #e66836 ;padding: 8px 0px 0px 0px;">
+                            <a class="gdlr-core-button  gdlr-core-button-transparent gdlr-core-center-align gdlr-core-button-no-border" href="<?= get_permalink(getIdPage('destinations')); ?>" style="font-size: 15px ;font-weight: 400 ;letter-spacing: 0px ;color: #e66836 ;padding: 8px 0px 0px 0px;">
                                 <span class="gdlr-core-content">View All Destinations</span>
                                 <i class="gdlr-core-pos-right fa fa-long-arrow-right" style="font-size: 17px ;"></i>
                             </a>
@@ -166,15 +166,20 @@ $evaluate = get_field('danh_gia', $ID);
                         <div class="tourmaster-tour-category clearfix " style="padding-bottom: 0px;">
                             <?php
                             $count = 1;
-                            $term = get_terms('location');
-
+//                            $term = get_terms('location');
+                            $term = get_terms( array(
+                                'taxonomy' => 'location',
+                                'orderby' => 'ID', // default: 'orderby' => 'name',
+                                'order' => 'DESC',
+                                'hide_empty' => false, // default: true
+                            ) );
                             foreach ($term as $t){
                                 $field = get_field('location', $t);
                                 if ($count == 1){?>
                                     <div class="tourmaster-tour-category-grid-3 tourmaster-item-list  tourmaster-item-pdlr tourmaster-item-mgb tourmaster-column-40 tourmaster-column-first tourmaster-with-thumbnail">
                                         <div class="tourmaster-tour-category-item-wrap" style="border-radius: 3px;-moz-border-radius: 3px;-webkit-border-radius: 3px;">
                                             <div class="tourmaster-tour-category-thumbnail tourmaster-media-image">
-                                                <img src="<?= $field['image']?>" width="1200" height="567" srcset="<?= $field['image']?> 400w, <?= $field['image']?> 600w, <?= $field['image']?> 800w, <?= $field['image']?>" sizes="(max-width: 767px) 100vw, (max-width: 1150px) 100vw, 1150px" alt="" style="max-height: 370px"/>
+                                                <img src="<?= $field['image']?>" width="1200" height="567" srcset="<?= $field['image']?> 400w, <?= $field['image']?> 600w, <?= $field['image']?> 800w, <?= $field['image']?>" sizes="(max-width: 767px) 100vw, (max-width: 1150px) 100vw, 1150px" alt="" style="max-height: 370px" />
                                             </div>
                                             <div class="tourmaster-tour-category-count"><?= $t->count?> tours</div>
                                             <div class="tourmaster-tour-category-overlay"></div>
@@ -195,7 +200,7 @@ $evaluate = get_field('danh_gia', $ID);
                                     <div class="tourmaster-tour-category-grid-3 tourmaster-item-list  tourmaster-item-pdlr tourmaster-item-mgb tourmaster-column-20 tourmaster-with-thumbnail">
                                         <div class="tourmaster-tour-category-item-wrap" style="border-radius: 3px;-moz-border-radius: 3px;-webkit-border-radius: 3px;">
                                             <div class="tourmaster-tour-category-thumbnail tourmaster-media-image">
-                                                <img src="<?= $field['image']?>" width="600" height="600" srcset="<?= $field['image']?> 400w, <?= $field?> 600w, <?= $field['image']?>" sizes="(max-width: 767px) 100vw, (max-width: 1150px) 100vw, 1150px" alt="" style="max-height: 370px"/>
+                                                <img src="<?= $field['image']?>" width="1200" height="600" srcset="<?= $field['image']?> 400w, <?= $field['image']?> 600w, <?= $field['image']?> 800w, <?= $field['image']?>" sizes="(max-width: 767px) 100vw, (max-width: 1150px) 100vw, 1150px" alt="" style="max-height: 370px"/>
                                             </div>
                                             <div class="tourmaster-tour-category-count"><?= $t->count?> tours</div>
                                             <div class="tourmaster-tour-category-overlay"></div>
@@ -222,7 +227,7 @@ $evaluate = get_field('danh_gia', $ID);
         </div>
         <div class="gdlr-core-pbf-wrapper " style="padding: 50px 0px 60px 0px;">
             <div class="gdlr-core-pbf-background-wrap">
-                <div class="gdlr-core-pbf-background gdlr-core-parallax gdlr-core-js" style="background-image: url(https://a6e8z9v6.stackpathcdn.com/traveltour/main4/wp-content/uploads/2019/04/title-bg-popular-3.jpg) ;background-repeat: no-repeat ;background-position: top center ;" data-parallax-speed="0.05"></div>
+                <div class="gdlr-core-pbf-background gdlr-core-parallax gdlr-core-js" style="background-image: url(<?= get_field('background_popular_tour', $ID); ?>) ;background-repeat: no-repeat ;background-position: top center ;" data-parallax-speed="0.05"></div>
             </div>
             <div class="gdlr-core-pbf-wrapper-content gdlr-core-js ">
                 <div class="gdlr-core-pbf-wrapper-container clearfix gdlr-core-container">
@@ -259,10 +264,7 @@ $evaluate = get_field('danh_gia', $ID);
                                                 <div class="tourmaster-tour-grid  tourmaster-tour-frame tourmaster-tour-grid-style-2 tourmaster-price-right-title">
                                                     <div class="tourmaster-tour-grid-inner" style="box-shadow: 0 0 23px rgba(10, 10, 10,0.08); -moz-box-shadow: 0 0 23px rgba(10, 10, 10,0.08); -webkit-box-shadow: 0 0 23px rgba(10, 10, 10,0.08); border-radius: 3px;-moz-border-radius: 3px;-webkit-border-radius: 3px;">
                                                         <div class="tourmaster-tour-thumbnail tourmaster-media-image  tourmaster-zoom-on-hover gdlr-core-outer-frame-element">
-                                                            <a class="gdlr-core-lightgallery gdlr-core-js " href="https://www.youtube.com/watch?v=eZjmjT5SLYs">
-                                                                <div class="tourmaster-tour-thumbnail-overlay">
-                                                                    <i class="fa fa-film"></i>
-                                                                </div>
+                                                            <a href="<?= $item->guid; ?>">
                                                                 <img src="<?= get_the_post_thumbnail_url($item->ID)?>" width="700" height="500" srcset="<?= get_the_post_thumbnail_url($item->ID)?> 400w, <?= get_the_post_thumbnail_url($item->ID)?> 700w" sizes="(max-width: 767px) 100vw, (max-width: 1150px) 33vw, 383px" alt=""/>
                                                             </a>
                                                         </div>
@@ -362,7 +364,7 @@ $evaluate = get_field('danh_gia', $ID);
                                                 <div class="tourmaster-tour-grid  tourmaster-tour-frame tourmaster-tour-grid-style-2 tourmaster-price-right-title">
                                                     <div class="tourmaster-tour-grid-inner" style="box-shadow: 0 0 23px rgba(10, 10, 10,0.08); -moz-box-shadow: 0 0 23px rgba(10, 10, 10,0.08); -webkit-box-shadow: 0 0 23px rgba(10, 10, 10,0.08); border-radius: 3px;-moz-border-radius: 3px;-webkit-border-radius: 3px;">
                                                         <div class="tourmaster-tour-thumbnail tourmaster-media-image  tourmaster-zoom-on-hover gdlr-core-outer-frame-element">
-                                                            <a href="<?= $item->guid?>">
+                                                            <a href="<?= $item->guid; ?>">
                                                                 <img src="<?= get_the_post_thumbnail_url($item->ID)?>" width="700" height="500" srcset="<?= get_the_post_thumbnail_url($item->ID)?> 400w, <?= get_the_post_thumbnail_url($item->ID)?> 700w" sizes="(max-width: 767px) 100vw, (max-width: 1150px) 33vw, 383px" alt=""/>
                                                             </a>
                                                         </div>
@@ -462,6 +464,9 @@ $evaluate = get_field('danh_gia', $ID);
                 $fieldDiscount = get_field('chuong_trinh_giam_gia', $ID);
             ?>
         <div class="gdlr-core-pbf-wrapper " style="margin-left: auto;margin-right: auto;padding: 0px 0px 35px 0px;max-width: 1220px ;" data-skin="White Text">
+            <?php
+            $fieldRecommentBachground = get_field('background', $ID);
+            ?>
             <div class="gdlr-core-pbf-background-wrap"></div>
             <div class="gdlr-core-pbf-wrapper-content gdlr-core-js ">
                 <div class="gdlr-core-pbf-wrapper-container clearfix gdlr-core-container">
@@ -489,12 +494,12 @@ $evaluate = get_field('danh_gia', $ID);
                                 <div class="gdlr-core-pbf-element">
                                     <div class="gdlr-core-image-item gdlr-core-item-pdb  gdlr-core-center-align gdlr-core-item-pdlr" style="padding-bottom: 10px ;">
                                         <div class="gdlr-core-image-item-wrap gdlr-core-media-image  gdlr-core-image-item-style-rectangle" style="border-width: 0px;">
-                                            <a class="gdlr-core-lightgallery gdlr-core-js " href="https://a6e8z9v6.stackpathcdn.com/traveltour/main4/wp-content/uploads/2019/03/tvicon4.png">
-                                                <img src="https://a6e8z9v6.stackpathcdn.com/traveltour/main4/wp-content/uploads/2019/03/tvicon4.png" alt="" width="134" height="28" title="tvicon4"/>
-                                                <span class="gdlr-core-image-overlay ">
-                                                    <i class="gdlr-core-image-overlay-icon  gdlr-core-size-22 fa fa-search"></i>
-                                                </span>
-                                            </a>
+<!--                                            <a class="gdlr-core-lightgallery gdlr-core-js " href="https://a6e8z9v6.stackpathcdn.com/traveltour/main4/wp-content/uploads/2019/03/tvicon4.png">-->
+<!--                                                <img src="https://a6e8z9v6.stackpathcdn.com/traveltour/main4/wp-content/uploads/2019/03/tvicon4.png" alt="" width="134" height="28" title="tvicon4"/>-->
+<!--                                                <span class="gdlr-core-image-overlay ">-->
+<!--                                                    <i class="gdlr-core-image-overlay-icon  gdlr-core-size-22 fa fa-search"></i>-->
+<!--                                                </span>-->
+<!--                                            </a>-->
                                         </div>
                                     </div>
                                 </div>
@@ -550,7 +555,6 @@ $evaluate = get_field('danh_gia', $ID);
                             <div class="gdlr-core-flexslider flexslider gdlr-core-js-2  gdlr-core-v1" data-type="carousel" data-column="3" data-nav="navigation-outer" data-nav-parent="tourmaster-tour-item" data-disable-autoslide="1">
                                 <ul class="slides">
                                     <?php
-                                    $fieldRecommentBachground = get_field('background', $ID);
                                     $recommentTour = get_field('goi_y_tour', $ID);
                                     foreach ($recommentTour as $item){
                                         $fieldRecommentTour = get_field('general_imformation', $item->ID);
@@ -559,10 +563,10 @@ $evaluate = get_field('danh_gia', $ID);
                                                 <div class="tourmaster-tour-grid  tourmaster-tour-frame tourmaster-tour-grid-style-2 tourmaster-price-right-title">
                                                     <div class="tourmaster-tour-grid-inner" style="box-shadow: 0 0 23px rgba(10, 10, 10,0.08); -moz-box-shadow: 0 0 23px rgba(10, 10, 10,0.08); -webkit-box-shadow: 0 0 23px rgba(10, 10, 10,0.08); border-radius: 3px;-moz-border-radius: 3px;-webkit-border-radius: 3px;">
                                                         <div class="tourmaster-tour-thumbnail tourmaster-media-image  tourmaster-zoom-on-hover gdlr-core-outer-frame-element">
-                                                            <a class="gdlr-core-lightgallery gdlr-core-js " href="https://www.youtube.com/watch?v=eZjmjT5SLYs">
-                                                                <div class="tourmaster-tour-thumbnail-overlay">
-                                                                    <i class="fa fa-film"></i>
-                                                                </div>
+                                                            <a href="<?= $item->guid; ?>">
+<!--                                                                <div class="tourmaster-tour-thumbnail-overlay">-->
+<!--                                                                    <i class="fa fa-film"></i>-->
+<!--                                                                </div>-->
                                                                 <img src="<?= get_the_post_thumbnail_url($item->ID)?>" width="700" height="500" srcset="<?= get_the_post_thumbnail_url($item->ID)?> 400w, <?= get_the_post_thumbnail_url($item->ID)?> 700w" sizes="(max-width: 767px) 100vw, (max-width: 1150px) 33vw, 383px" alt=""/>
                                                             </a>
                                                         </div>
@@ -788,8 +792,8 @@ $evaluate = get_field('danh_gia', $ID);
                     <div class="gdlr-core-pbf-element">
                         <div class="gdlr-core-image-item gdlr-core-item-pdb  gdlr-core-center-align gdlr-core-item-pdlr" style="padding-bottom: 0px ;">
                             <div class="gdlr-core-image-item-wrap gdlr-core-media-image  gdlr-core-image-item-style-rectangle" style="border-width: 0px;">
-                                <a class="gdlr-core-lightgallery gdlr-core-js " href="<?= $fieldHighlight['video']?>">
-                                    <img src="<?= $fieldHighlight['icon_play']?>" alt="" width="71" height="71" title="tvicon5"/>
+                                <a href="<?= $fieldHighlight['video']?>" target="_blank">
+                                    <img src="<?= $fieldHighlight['icon_play']?>" alt="" width="71" height="71" />
                                 </a>
                             </div>
                         </div>
@@ -834,7 +838,7 @@ $evaluate = get_field('danh_gia', $ID);
                                                     </div>
                                                     <div class="gdlr-core-testimonial-author-wrap clearfix">
                                                         <div class="gdlr-core-testimonial-author-image gdlr-core-media-image">
-                                                            <img src="<?= $value['image']?>" alt="" width="150" height="150"/>
+                                                            <img src="<?= $value['image']?>" alt="" width="150" height="150" style="max-height: 55px;"/>
                                                         </div>
                                                         <div class="gdlr-core-testimonial-author-content">
                                                             <div class="gdlr-core-testimonial-title gdlr-core-title-font gdlr-core-skin-title"><?= $value['name_reviewer']?></div>
@@ -1079,7 +1083,7 @@ $evaluate = get_field('danh_gia', $ID);
                                                                         <span class="gdlr-core-head">
                                                                             <i class="icon_documents_alt"></i>
                                                                         </span>
-                                                                        <a href="https://demo.goodlayers.com/traveltour/main4/author/superuser/" title="Posts by <?= get_the_author_meta('user_nicename',$articles[0]->post_author);?>" rel="author"><?= get_the_author_meta('user_nicename',$articles[0]->post_author);?></a>
+                                                                        <a href="#" title="Posts by <?= get_the_author_meta('user_nicename',$articles[0]->post_author);?>" rel="author"><?= get_the_author_meta('user_nicename',$articles[0]->post_author);?></a>
                                                                     </span>
                                                         </div>
                                                     </div>
@@ -1130,13 +1134,13 @@ $evaluate = get_field('danh_gia', $ID);
                                 <?php if ($check):?>
                                         <div class="gdlr-core-item-list gdlr-core-gallery-column  gdlr-core-column-12 gdlr-core-column-first gdlr-core-item-pdlr gdlr-core-item-mgb">
                                             <div class="gdlr-core-gallery-list gdlr-core-media-image">
-                                                <img src="<?= $dt?>" alt="" width="300" height="129"/>
+                                                <img src="<?= $dt?>" alt="" width="300" height="129" style="max-height: 129px;"/>
                                             </div>
                                         </div>
                                 <?php $check = false; else:?>
                                         <div class="gdlr-core-item-list gdlr-core-gallery-column  gdlr-core-column-12 gdlr-core-item-pdlr gdlr-core-item-mgb">
                                             <div class="gdlr-core-gallery-list gdlr-core-media-image">
-                                                <img src="<?= $dt?>" alt="" width="300" height="129" title="banner-2"/>
+                                                <img src="<?= $dt?>" alt="" width="300" height="129" title="banner-2" style="max-height: 129px;"/>
                                             </div>
                                         </div>
                                 <?php endif;?>

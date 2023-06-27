@@ -856,16 +856,16 @@
                         <i class="fa-brands fa-twitter"></i>
                     </a>
                 </div>
-                <div class="tourmaster-user-top-bar tourmaster-guest tourmaster-style-1">
-                    <a class="tourmaster-user-top-bar-login" href="https://demo.goodlayers.com/traveltour/main4/login/">
-                        <i class="fa-regular fa-lock-keyhole"></i>
-                        <span class="tourmaster-text">Login</span>
-                    </a>
-                    <a class="tourmaster-user-top-bar-signup" href="https://demo.goodlayers.com/traveltour/main4/register/">
-                        <i class="fa fa-user"></i>
-                        <span class="tourmaster-text">Sign Up</span>
-                    </a>
-                </div>
+<!--                <div class="tourmaster-user-top-bar tourmaster-guest tourmaster-style-1">-->
+<!--                    <a class="tourmaster-user-top-bar-login" href="https://demo.goodlayers.com/traveltour/main4/login/">-->
+<!--                        <i class="fa-regular fa-lock-keyhole"></i>-->
+<!--                        <span class="tourmaster-text">Login</span>-->
+<!--                    </a>-->
+<!--                    <a class="tourmaster-user-top-bar-signup" href="https://demo.goodlayers.com/traveltour/main4/register/">-->
+<!--                        <i class="fa fa-user"></i>-->
+<!--                        <span class="tourmaster-text">Sign Up</span>-->
+<!--                    </a>-->
+<!--                </div>-->
             </div>
         </div>
     </div>
@@ -873,7 +873,7 @@
         <div class="traveltour-mobile-header-container traveltour-container">
             <div class="traveltour-logo  traveltour-item-pdlr">
                 <div class="traveltour-logo-inner">
-                    <a href="https://demo.goodlayers.com/traveltour/main4/">
+                    <a href="<?= get_home_url(); ?>">
                         <img src="https://a6e8z9v6.stackpathcdn.com/traveltour/main4/wp-content/uploads/2019/04/logo-v3.png" alt="" width="250" height="52" title="logo-v3" />
                     </a>
                 </div>
@@ -886,7 +886,7 @@
                     <div class="traveltour-top-search-close"></div>
                     <div class="traveltour-top-search-row">
                         <div class="traveltour-top-search-cell">
-                            <form role="search" method="get" class="search-form" action="http://amazing.test">
+                            <form role="search" method="get" class="search-form" action="<?= get_permalink(getIdPage('search')); ?>">
                                 <input type="text" class="search-field traveltour-title-font" placeholder="Search..." value="" name="s">
                                 <div class="traveltour-top-search-submit">
                                     <i class="fa fa-search"></i>
@@ -974,7 +974,8 @@
                                             </div>
                                             <input type="submit" class="search-submit" value="Search">
                                             <div class="traveltour-top-search-close">
-                                                <i class="icon_close"></i>
+<!--                                                <i class="icon_close"></i>-->
+                                                <i class="fa-light fa-xmark"></i>
                                             </div>
                                         </form>
                                     </div>

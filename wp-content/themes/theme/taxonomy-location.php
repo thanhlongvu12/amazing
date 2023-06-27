@@ -11,7 +11,7 @@ $obj = get_queried_object();
 get_header();
 ?>
 
-<div class="traveltour-page-title-wrap  traveltour-style-medium traveltour-center-align">
+<div class="traveltour-page-title-wrap  traveltour-style-medium traveltour-center-align" style="background-image: url(<?= get_the_post_thumbnail_url($obj->ID); ?>);">
     <div class="traveltour-header-transparent-substitute"></div>
     <div class="traveltour-page-title-overlay"></div>
     <div class="traveltour-page-title-container traveltour-container">
@@ -89,8 +89,8 @@ get_header();
                                                         <?php endif;?>
                                                         <div class="tourmaster-tour-info-wrap clearfix">
                                                             <div class="tourmaster-tour-info tourmaster-tour-info-duration-text ">
-                                                                <i class="icon_clock_alt"></i>
-
+<!--                                                                <i class="icon_clock_alt"></i>-->
+                                                                <i class="fa-light fa-clock"></i>
                                                                 <?php if (!empty($field['day_vacation'])):?>
                                                                     <?= $field['day_vacation']?> Days
                                                                 <?php endif;?>

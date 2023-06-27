@@ -18,6 +18,7 @@ foreach ($category as $item){
 
 $listPost = array(
     'post_type'=>'post',
+    'posts_per_page'=>-1,
     'tax_query'=>array(
         'relation'=>'AND',
         array(
@@ -55,6 +56,7 @@ get_header();
                                 <?php
                                 $count = 1;
                                 foreach ($listPostQuery->posts as $item){
+                                    $cate = get_field('categoty_review', $item->ID);
                                     if ($count == 1){
                                         ?>
                                         <div class="gdlr-core-item-list  gdlr-core-item-pdlr gdlr-core-column-20 gdlr-core-column-first">
@@ -85,17 +87,30 @@ get_header();
                                                     <div class="gdlr-core-blog-info-wrapper gdlr-core-skin-divider" data-sync-height-offset>
                                                 <span class="gdlr-core-blog-info gdlr-core-blog-info-font gdlr-core-skin-caption gdlr-core-blog-info-author">
                                                     <span class="gdlr-core-head">
-                                                        <i class="icon_documents_alt"></i>
+                                                        <i class="fa-light fa-folder"></i>
                                                     </span>
                                                     <a href="#" title="Posts by <?= get_the_author_meta('user_nicename',$item->post_author); ?>" rel="author"><?= get_the_author_meta('user_nicename',$item->post_author); ?></a>
                                                 </span>
                                                         <span class="gdlr-core-blog-info gdlr-core-blog-info-font gdlr-core-skin-caption gdlr-core-blog-info-category">
                                                     <span class="gdlr-core-head">
-                                                        <i class="icon_folder-alt"></i>
+                                                        <i class="fa-thin fa-file"></i>
                                                     </span>
-                                                    <a href="https://demo.goodlayers.com/traveltour/main4/category/blog/" rel="tag">Blog</a>
-                                                    <span class="gdlr-core-sep">,</span>
-                                                    <a href="https://demo.goodlayers.com/traveltour/main4/category/uncategorized/" rel="tag">Uncategorized</a>
+                                                            <?php
+                                                            $index = 1;
+                                                            foreach ($cate as $c){
+                                                                if ($index == 1) {
+                                                                    ?>
+                                                                    <a href="<?= get_term_link($c->term_id); ?>"><?= $c->name?></a>
+                                                                    <?php
+                                                                }else{
+                                                                    ?>
+                                                                    <span class="gdlr-core-sep">,</span>
+                                                                    <a href="<?= get_term_link($c->term_id); ?>"><?= $c->name?></a>
+                                                                    <?php
+                                                                }
+                                                                $index++;
+                                                            }
+                                                            ?>
                                                 </span>
                                                     </div>
                                                 </div>
@@ -117,6 +132,9 @@ get_header();
                                                     <span class="gdlr-core-head">
                                                         <i class="icon_clock_alt"></i>
                                                     </span>
+                                                    <?php
+                                                    $date = new DateTime($item->post_date);
+                                                    ?>
                                                     <a href="#"><?= $date->format('M d Y'); ?></a>
                                                 </span>
                                                     </div>
@@ -129,17 +147,30 @@ get_header();
                                                     <div class="gdlr-core-blog-info-wrapper gdlr-core-skin-divider" data-sync-height-offset>
                                                 <span class="gdlr-core-blog-info gdlr-core-blog-info-font gdlr-core-skin-caption gdlr-core-blog-info-author">
                                                     <span class="gdlr-core-head">
-                                                        <i class="icon_documents_alt"></i>
+                                                        <i class="fa-light fa-folder"></i>
                                                     </span>
                                                     <a href="#" title="Posts by <?= get_the_author_meta('user_nicename',$item->post_author); ?>" rel="author"><?= get_the_author_meta('user_nicename',$item->post_author); ?></a>
                                                 </span>
                                                         <span class="gdlr-core-blog-info gdlr-core-blog-info-font gdlr-core-skin-caption gdlr-core-blog-info-category">
                                                     <span class="gdlr-core-head">
-                                                        <i class="icon_folder-alt"></i>
+                                                        <i class="fa-thin fa-file"></i>
                                                     </span>
-                                                    <a href="https://demo.goodlayers.com/traveltour/main4/category/blog/" rel="tag">Blog</a>
-                                                    <span class="gdlr-core-sep">,</span>
-                                                    <a href="https://demo.goodlayers.com/traveltour/main4/category/uncategorized/" rel="tag">Uncategorized</a>
+                                                            <?php
+                                                            $index = 1;
+                                                            foreach ($cate as $c){
+                                                                if ($index == 1) {
+                                                                    ?>
+                                                                    <a href="<?= get_term_link($c->term_id); ?>"><?= $c->name?></a>
+                                                                    <?php
+                                                                }else{
+                                                                    ?>
+                                                                    <span class="gdlr-core-sep">,</span>
+                                                                    <a href="<?= get_term_link($c->term_id); ?>"><?= $c->name?></a>
+                                                                    <?php
+                                                                }
+                                                                $index++;
+                                                            }
+                                                            ?>
                                                 </span>
                                                     </div>
                                                 </div>

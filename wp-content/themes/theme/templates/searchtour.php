@@ -196,22 +196,6 @@ get_header();
                                             </div>
                                         </div>
                                         <div class="clear"></div>
-<!--                                        <div class="tourmaster-tour-search-field tourmaster-tour-search-field-rating clearfix">-->
-<!--                                            <label class="gdlr-core-skin-title">Rating</label>-->
-<!--                                            <span class="tourmaster-rating-select" data-rating-score="0"></span>-->
-<!--                                            <i class="tourmaster-rating-select fa fa-star-o" data-rating-score="1"></i>-->
-<!--                                            <span class="tourmaster-rating-select" data-rating-score="2"></span>-->
-<!--                                            <i class="tourmaster-rating-select fa fa-star-o" data-rating-score="3"></i>-->
-<!--                                            <span class="tourmaster-rating-select" data-rating-score="4"></span>-->
-<!--                                            <i class="tourmaster-rating-select fa fa-star-o" data-rating-score="5"></i>-->
-<!--                                            <span class="tourmaster-rating-select" data-rating-score="6"></span>-->
-<!--                                            <i class="tourmaster-rating-select fa fa-star-o" data-rating-score="7"></i>-->
-<!--                                            <span class="tourmaster-rating-select" data-rating-score="8"></span>-->
-<!--                                            <i class="tourmaster-rating-select fa fa-star-o" data-rating-score="9"></i>-->
-<!--                                            <span class="tourmaster-rating-select" data-rating-score="10"></span>-->
-<!--                                            <input type="hidden" name="rating" value="0"/>-->
-<!--                                            <span class="tourmaster-tail">or more</span>-->
-<!--                                        </div>-->
                                         <div class="tourmaster-tour-search-item-divier"></div>
                                         <div class="tourmaster-tour-search-type-filter">
                                             <h3 class="tourmaster-type-filter-title">
@@ -247,28 +231,13 @@ get_header();
                                                     <h5 class="tourmaster-type-filter-item-title">Destination</h5>
                                                     <?php foreach ($location as $item) : ?>
                                                         <label class="tourmaster-type-filter-term">
-                                                            <input type="checkbox" name="tax-tour-destination[]" value="<?= $item->slug; ?>"/>
+                                                            <input type="radio" name="tax-tour-destination" value="<?= $item->slug; ?>"/>
                                                             <span class="tourmaster-type-filter-display">
-                                                                            <i class="fa fa-check"></i>
-                                                                            <span class="tourmaster-head"><?= $item->name; ?></span>
-                                                                        </span>
+                                                                <i class="fa fa-check"></i>
+                                                                <span class="tourmaster-head"><?= $item->name; ?></span>
+                                                            </span>
                                                         </label>
                                                     <?php endforeach;?>
-<!--                                                    <label class="gdlr-core-skin-title">-->
-<!--                                                        <input class="tourmaster-type-filter-show-more" type="checkbox"/>-->
-<!--                                                        <span class="tourmaster-type-filter-more-button">-->
-<!--                                                                            More<i class="fa fa-angle-down"></i>-->
-<!--                                                                        </span>-->
-<!--                                                        <div class="tourmaster-type-filter-hide">-->
-<!--                                                            <label class="tourmaster-type-filter-term">-->
-<!--                                                                <input type="checkbox" name="tax-tour-destination[]" value="western-europe"/>-->
-<!--                                                                <span class="tourmaster-type-filter-display">-->
-<!--                                                                                    <i class="fa fa-check"></i>-->
-<!--                                                                                    <span class="tourmaster-head">Western Europe</span>-->
-<!--                                                                                </span>-->
-<!--                                                            </label>-->
-<!--                                                        </div>-->
-<!--                                                    </label>-->
                                                 </div>
                                             </div>
                                         </div>
@@ -305,31 +274,6 @@ get_header();
                                             </select>
                                         </form>
                                     </div>
-<!--                                    <span class="tourmaster-tour-order-filterer-style">-->
-<!--                                                        <a href="#" data-ajax-name="item-style" class="" data-ajax-value="list-style">-->
-<!--                                                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="20" viewBox="0 0 25 20">-->
-<!--                                                                <circle class="cls-1" cx="2" cy="2" r="2"/>-->
-<!--                                                                <circle id="Ellipse_955_copy_2" data-name="Ellipse 955 copy 2" class="cls-1" cx="2" cy="10" r="2"/>-->
-<!--                                                                <circle id="Ellipse_955_copy_3" data-name="Ellipse 955 copy 3" class="cls-1" cx="2" cy="18" r="2"/>-->
-<!--                                                                <rect class="cls-1" x="6" width="19" height="4" rx="2" ry="2"/>-->
-<!--                                                                <rect id="Rectangle_959_copy" data-name="Rectangle 959 copy" class="cls-1" x="6" y="8" width="19" height="4" rx="2" ry="2"/>-->
-<!--                                                                <rect id="Rectangle_959_copy_2" data-name="Rectangle 959 copy 2" class="cls-1" x="6" y="16" width="19" height="4" rx="2" ry="2"/>-->
-<!--                                                            </svg>-->
-<!--                                                        </a>-->
-<!--                                                        <a href="#" data-ajax-name="item-style" class="tourmaster-active" data-ajax-value="grid-style">-->
-<!--                                                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">-->
-<!--                                                                <circle id="Ellipse_955_copy_2" data-name="Ellipse 955 copy 2" class="cls-1" cx="2" cy="2" r="2"/>-->
-<!--                                                                <circle id="Ellipse_955_copy_3" data-name="Ellipse 955 copy 3" class="cls-1" cx="9" cy="2" r="2"/>-->
-<!--                                                                <circle id="Ellipse_955_copy_4" data-name="Ellipse 955 copy 4" class="cls-1" cx="16" cy="2" r="2"/>-->
-<!--                                                                <circle id="Ellipse_955_copy_5" data-name="Ellipse 955 copy 5" class="cls-1" cx="2" cy="9" r="2"/>-->
-<!--                                                                <circle id="Ellipse_955_copy_5-2" data-name="Ellipse 955 copy 5" class="cls-1" cx="9" cy="9" r="2"/>-->
-<!--                                                                <circle id="Ellipse_955_copy_5-3" data-name="Ellipse 955 copy 5" class="cls-1" cx="16" cy="9" r="2"/>-->
-<!--                                                                <circle id="Ellipse_955_copy_6" data-name="Ellipse 955 copy 6" class="cls-1" cx="2" cy="16" r="2"/>-->
-<!--                                                                <circle id="Ellipse_955_copy_6-2" data-name="Ellipse 955 copy 6" class="cls-1" cx="9" cy="16" r="2"/>-->
-<!--                                                                <circle id="Ellipse_955_copy_6-3" data-name="Ellipse 955 copy 6" class="cls-1" cx="16" cy="16" r="2"/>-->
-<!--                                                            </svg>-->
-<!--                                                        </a>-->
-<!--                                                    </span>-->
                                 </div>
                                 <div class="tourmaster-tour-item-holder gdlr-core-js-2 clearfix" data-layout="fitrows">
                                     <?php
@@ -827,7 +771,6 @@ get_header();
 get_footer();
 ?>
 <!--<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>-->
-<script src="<?= get_template_directory_uri()?>/templates/includes/js/scripts.js"></script>
 <script src="<?= get_template_directory_uri()?>/templates/includes/js/scripts.js"></script>
 <script>
     var tourSearch = "<?php echo $textSearch; ?>";

@@ -9,10 +9,12 @@
 
 $obj = get_queried_object();
 
+$backGround = get_field('back_ground', $obj->ID);
+
 get_header();
 ?>
 <div class="traveltour-page-wrapper" id="traveltour-page-wrapper">
-    <div class="traveltour-blog-title-wrap  traveltour-style-small" style="background-image: url(https://a6e8z9v6.stackpathcdn.com/traveltour/main4/wp-content/themes/traveltour/images/page-title-background.jpg);">
+    <div class="traveltour-blog-title-wrap  traveltour-style-small" style="background-image: url(<?= $backGround; ?>);">
         <div class="traveltour-header-transparent-substitute"></div>
         <div class="traveltour-blog-title-top-overlay"></div>
         <div class="traveltour-blog-title-overlay"></div>
@@ -33,7 +35,8 @@ get_header();
                         <div class="traveltour-blog-info-wrapper">
                             <div class="traveltour-blog-info traveltour-blog-info-font traveltour-blog-info-category">
                                                 <span class="traveltour-head">
-                                                    <i class="icon_folder-alt"></i>
+<!--                                                    <i class="icon_folder-alt"></i>-->
+                                                    <i class="fa-light fa-folder"></i>
                                                 </span>
                                 <?php
                                 $category = get_the_category($obj->ID);
@@ -55,7 +58,8 @@ get_header();
                             </div>
                             <div class="traveltour-blog-info traveltour-blog-info-font traveltour-blog-info-tag">
                                                 <span class="traveltour-head">
-                                                    <i class="icon_tags_alt"></i>
+<!--                                                    <i class="icon_tags_alt"></i>-->
+                                                    <i class="fa-light fa-tag"></i>
                                                 </span>
                                 <?php
                                 $tags = get_the_tags($obj->ID);
