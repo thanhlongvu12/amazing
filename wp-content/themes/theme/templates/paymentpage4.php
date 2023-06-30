@@ -194,7 +194,7 @@ if($hashValidated=="CORRECT" && $txnResponseCode=="0"){
         $wpdb->update(
             $table_name,
             array(
-                'status' => 2,
+                'status' => 1,
             ),
             array(
                 'email' => $email

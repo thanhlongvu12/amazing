@@ -45,7 +45,7 @@ get_header();
                         if ($count == 1){
                             ?>
                             <div class="gdlr-core-pbf-column gdlr-core-column-20 gdlr-core-column-first">
-                                <div class="gdlr-core-pbf-column-content-margin gdlr-core-js " style="padding: 50px 20px 0px 20px;">
+                                <div class="gdlr-core-pbf-column-content-margin gdlr-core-js " style="padding: 30px 20px 0px 20px;">
                                     <div class="gdlr-core-pbf-background-wrap"></div>
                                     <div class="gdlr-core-pbf-column-content clearfix gdlr-core-js " data-gdlr-animation="fadeInUp" data-gdlr-animation-duration="600ms" data-gdlr-animation-offset="0.8">
                                         <div class="gdlr-core-pbf-element">
@@ -87,7 +87,7 @@ get_header();
                             if ($value['contact_method']['name'] == 'location'){
                                 ?>
                                 <div class="gdlr-core-pbf-column gdlr-core-column-20">
-                                    <div class="gdlr-core-pbf-column-content-margin gdlr-core-js " style="padding: 50px 20px 0px 20px;">
+                                    <div class="gdlr-core-pbf-column-content-margin gdlr-core-js " style="padding: 30px 20px 0px 20px;">
                                         <div class="gdlr-core-pbf-background-wrap"></div>
                                         <div class="gdlr-core-pbf-column-content clearfix gdlr-core-js " data-gdlr-animation="fadeInDown" data-gdlr-animation-duration="600ms" data-gdlr-animation-offset="0.8">
                                             <div class="gdlr-core-pbf-element">
@@ -130,8 +130,7 @@ get_header();
                             } else {
                                 ?>
                                 <div class="gdlr-core-pbf-column gdlr-core-column-20">
-                                    <div class="gdlr-core-pbf-column-content-margin gdlr-core-js "
-                                         style="padding: 50px 20px 0px 20px;">
+                                    <div class="gdlr-core-pbf-column-content-margin gdlr-core-js " style="padding: 30px 20px 0px 20px;">
                                         <div class="gdlr-core-pbf-background-wrap"></div>
                                         <div class="gdlr-core-pbf-column-content clearfix gdlr-core-js "
                                              data-gdlr-animation="fadeInDown" data-gdlr-animation-duration="600ms"

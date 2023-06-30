@@ -81,7 +81,7 @@ get_header();
                                         </div>
                                     <?php else:?>
                                         <div class="tourmaster-tour-price-wrap tourmaster-discount">
-                                            <i class="fa-light fa-tag" style="font-size: 23px; margin-right: 15px"></i>
+                                            <i class="fa fa-tag" style="font-size: 23px; margin-right: 15px"></i>
                                                                         <span class="tourmaster-tour-price">
 <!--                                                                            <span class="tourmaster-head">From</span>-->
                                                                             <span class="tourmaster-tail">$<?= $fieldGareral['old_price']?></span>
@@ -767,7 +767,7 @@ get_header();
                                             <h6 class="gdlr-core-title-item-title gdlr-core-skin-title" style="font-size: 24px ;font-weight: 600 ;letter-spacing: 0px ;text-transform: none ;">
                                                                 <span class="gdlr-core-title-item-left-icon" style="font-size: 18px ;">
 <!--                                                                    <i class="icon_images" style="color: #1e1e1e ;"></i>-->
-                                                                    <i class="fa-light fa-image" style="color: #1e1e1e ;"></i>
+                                                                    <i class="fa fa-image" style="color: #1e1e1e ;"></i>
                                                                 </span>
                                                 Photos<span class="gdlr-core-title-item-title-divider gdlr-core-skin-divider"></span>
                                             </h6>
@@ -915,7 +915,7 @@ get_header();
                                                 ?>
                                                 <div class="gdlr-core-accordion-item-tab clearfix  gdlr-core-active">
                                                     <div class="gdlr-core-accordion-item-icon gdlr-core-js gdlr-core-skin-icon  gdlr-core-skin-e-background gdlr-core-skin-border icon-<?= $i?>" data-id="<?= $i?>" >
-                                                        <i id="icon-<?= $i?>" class="fa-light fa-minus icon-check"></i>
+                                                        <i id="icon-<?= $i?>" class="fa fa-minus icon-check"></i>
                                                     </div>
                                                     <div class="gdlr-core-accordion-item-content-wrapper">
                                                         <h4 class="gdlr-core-accordion-item-title gdlr-core-js "><?= $item['title']; ?></h4>
@@ -929,7 +929,7 @@ get_header();
                                                 ?>
                                                 <div class="gdlr-core-accordion-item-tab clearfix">
                                                     <div class="gdlr-core-accordion-item-icon gdlr-core-js gdlr-core-skin-icon  gdlr-core-skin-e-background gdlr-core-skin-border " data-id="<?= $i?>" >
-                                                        <i id="icon-<?= $i?>" class="fa-light fa-plus icon-check"></i>
+                                                        <i id="icon-<?= $i?>" class="fa fa-plus icon-check"></i>
                                                     </div>
                                                     <div class="gdlr-core-accordion-item-content-wrapper">
                                                         <h4 class="gdlr-core-accordion-item-title gdlr-core-js "><?= $item['title']; ?></h4>
@@ -949,12 +949,12 @@ get_header();
                         </div>
                     </div>
                 </div>
-                <div class="tourmaster-single-tour-read-more-gradient"></div>
-                <div class="tourmaster-single-tour-read-more-wrap">
-                    <div class="tourmaster-container">
-                        <a class="tourmaster-button tourmaster-item-mglr" href="#">Read More</a>
-                    </div>
-                </div>
+<!--                <div class="tourmaster-single-tour-read-more-gradient"></div>-->
+<!--                <div class="tourmaster-single-tour-read-more-wrap">-->
+<!--                    <div class="tourmaster-container">-->
+<!--                        <a class="tourmaster-button tourmaster-item-mglr" href="#">Read More</a>-->
+<!--                    </div>-->
+<!--                </div>-->
             </div>
             <div class="tourmaster-single-related-tour tourmaster-tour-item tourmaster-style-grid">
                 <div class="tourmaster-single-related-tour-container tourmaster-container">
@@ -1077,66 +1077,6 @@ get_header();
                     </div>
                 </div>
             </div>
-<!--            <div class="tourmaster-single-review-container tourmaster-container">-->
-<!--                <div class="tourmaster-single-review-item tourmaster-item-pdlr">-->
-<!--                    <div class="tourmaster-single-review" id="tourmaster-single-review">-->
-<!--                        <div class="tourmaster-single-review-head clearfix">-->
-<!--                            <div class="tourmaster-single-review-head-info clearfix">-->
-<!--                                <div class="tourmaster-tour-rating">-->
-<!--                                    <span class="tourmaster-tour-rating-text">1 Review</span>-->
-<!--                                    <i class="fa fa-star"></i>-->
-<!--                                    <i class="fa fa-star"></i>-->
-<!--                                    <i class="fa fa-star"></i>-->
-<!--                                    <i class="fa fa-star"></i>-->
-<!--                                    <i class="fa fa-star"></i>-->
-<!--                                </div>-->
-<!--                                <div class="tourmaster-single-review-filter" id="tourmaster-single-review-filter">-->
-<!--                                    <div class="tourmaster-single-review-sort-by">-->
-<!--                                        <span class="tourmaster-head">Sort By:</span>-->
-<!--                                        <span class="tourmaster-sort-by-field" data-sort-by="rating">Rating</span>-->
-<!--                                        <span class="tourmaster-sort-by-field tourmaster-active" data-sort-by="date">Date</span>-->
-<!--                                    </div>-->
-<!--                                    <div class="tourmaster-single-review-filter-by tourmaster-form-field tourmaster-with-border">-->
-<!--                                        <div class="tourmaster-combobox-wrap">-->
-<!--                                            <select id="tourmaster-filter-by">-->
-<!--                                                <option value="">Filter By</option>-->
-<!--                                                <option value="solo">Solo</option>-->
-<!--                                                <option value="couple">Couple</option>-->
-<!--                                                <option value="family">Family</option>-->
-<!--                                                <option value="group">Group</option>-->
-<!--                                            </select>-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                        <div class="tourmaster-single-review-content" id="tourmaster-single-review-content" data-tour-id="4649" data-ajax-url="https://demo.goodlayers.com/traveltour/main4/wp-admin/admin-ajax.php">-->
-<!--                            <div class="tourmaster-single-review-content-item clearfix">-->
-<!--                                <div class="tourmaster-single-review-user clearfix">-->
-<!--                                    <div class="tourmaster-single-review-avatar tourmaster-media-image">-->
-<!--                                        <img alt='' src='https://secure.gravatar.com/avatar/e9fb3348941be9d33fa944e0c6441345?s=85&#038;d=mm&#038;r=g' srcset='https://secure.gravatar.com/avatar/e9fb3348941be9d33fa944e0c6441345?s=170&#038;d=mm&#038;r=g 2x' class='avatar avatar-85 photo' height='85' width='85' loading='lazy' decoding='async'/>-->
-<!--                                    </div>-->
-<!--                                    <h4 class="tourmaster-single-review-user-name">Jenny Doe</h4>-->
-<!--                                    <div class="tourmaster-single-review-user-type">Couple Traveller</div>-->
-<!--                                </div>-->
-<!--                                <div class="tourmaster-single-review-detail">-->
-<!--                                    <div class="tourmaster-single-review-detail-description">-->
-<!--                                        <p>Very nice city</p>-->
-<!--                                    </div>-->
-<!--                                    <div class="tourmaster-single-review-detail-rating">-->
-<!--                                        <i class="fa fa-star"></i>-->
-<!--                                        <i class="fa fa-star"></i>-->
-<!--                                        <i class="fa fa-star"></i>-->
-<!--                                        <i class="fa fa-star"></i>-->
-<!--                                        <i class="fa fa-star"></i>-->
-<!--                                    </div>-->
-<!--                                    <div class="tourmaster-single-review-detail-date">April 4, 2019</div>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
         </div>
     </div>
 </div>

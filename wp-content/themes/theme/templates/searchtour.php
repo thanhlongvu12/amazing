@@ -7,7 +7,6 @@
  * Template Name: Search Tour
  */
 
-
 $location = get_terms('location');
 
 $textSearch = $_GET['tour-search'];
@@ -16,12 +15,50 @@ $destination = $_GET['tax-tour-destination'];
 
 $duration = $_GET['duration'];
 
-$paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
+$minPrice = $_GET['min-price'];
+
+$maxPrice = $_GET['max-price'];
+
+if(!empty($_GET['tax-tour-age'])){
+    $minAge = $_GET['tax-tour-age'];
+}else{
+    $minAge = 0;
+}
+
+if (empty($minPrice)){
+    $minPrice = 0;
+}
+
+if (empty($maxPrice)){
+    $maxPrice = 9999999999999;
+}
+
+$metaKeyAge = 'imformation_tour_min_age';
+
+$metaKeyPrice = 'general_imformation_save_price';
+
+$metaKeyDuration = 'general_imformation_day_vacation';
+
+if(empty($duration)) {
+    $durationMin = 0;
+    $durationMax = 999999999999;
+}else{
+    if ($duration == 1){
+        $metaKey = 'general_imformation_hour';
+        $durationMin = -1;
+        $durationMax = 99999999999;
+    }elseif ($duration == 7){
+        $durationMax = 9999999999999999;
+    }else{
+        $durationMin = $duration;
+        $durationMax = $duration + 2;
+    }
+}
 
 if (!empty($destination)){
     $arrTour = array(
         'post_type'=>'dia_diem_du_lich',
-        'paged' => $paged,
+        'posts_per_page'=>-1,
         'tax_query'=>array(
             array(
                 'taxonomy'=>'location',
@@ -37,10 +74,30 @@ if (!empty($destination)){
                 'compare'=>'LIKE',
             ),
             array(
-                'key'=>'general_imformation_day_vacation',
-                'value'=>$duration,
-                'compare'=>'LIKE',
-            )
+                'key'=>$metaKeyDuration,
+                'value'=>$durationMin,
+                'compare'=>'>=',
+            ),
+            array(
+                'key'=>$metaKeyDuration,
+                'value'=>$durationMax,
+                'compare'=>'<=',
+            ),
+            array(
+                'key'=>$metaKeyPrice,
+                'value'=>$minPrice,
+                'compare'=>'>='
+            ),
+            array(
+                'key'=>$metaKeyPrice,
+                'value'=>$maxPrice,
+                'compare'=>'<='
+            ),
+            array(
+                'key'=>$metaKeyAge,
+                'value'=>$minAge,
+                'compare'=>'>='
+            ),
         ),
         'meta_key'=>'general_imformation_save_price',
         'orderby' => 'meta_value_num',
@@ -49,7 +106,7 @@ if (!empty($destination)){
 }else{
     $arrTour = array(
         'post_type'=>'dia_diem_du_lich',
-        'paged' => $paged,
+        'posts_per_page'=>-1,
         'meta_query'=>array(
             'relation'=>'AND',
             array(
@@ -58,10 +115,30 @@ if (!empty($destination)){
                 'compare'=>'LIKE',
             ),
             array(
-                'key'=>'general_imformation_day_vacation',
-                'value'=>$duration,
-                'compare'=>'LIKE',
-            )
+                'key'=>$metaKeyDuration,
+                'value'=>$durationMin,
+                'compare'=>'>=',
+            ),
+            array(
+                'key'=>$metaKeyDuration,
+                'value'=>$durationMax,
+                'compare'=>'<=',
+            ),
+            array(
+                'key'=>$metaKeyPrice,
+                'value'=>$minPrice,
+                'compare'=>'>='
+            ),
+            array(
+                'key'=>$metaKeyPrice,
+                'value'=>$maxPrice,
+                'compare'=>'<='
+            ),
+            array(
+                'key'=>$metaKeyAge,
+                'value'=>$minAge,
+                'compare'=>'>='
+            ),
         ),
         'meta_key'=>'general_imformation_save_price',
         'orderby' => 'meta_value_num',
@@ -112,8 +189,24 @@ get_header();
         box-shadow: none;
         -webkit-box-shadow: none;
     }
+    
+    @media screen and (min-width: 768px) {
+        body{
+            .tourmaster-page-content{
+                display: flex;
+            }
+        }
+    }
+
+    @media screen and (max-width: 786px){
+        body{
+            .tourmaster-page-content{
+                display: block;
+            }
+        }
+    }
 </style>
-<div class="traveltour-page-title-wrap  traveltour-style-medium traveltour-center-align">
+<div class="traveltour-page-title-wrap  traveltour-style-medium traveltour-center-align" style="background-image: url(<?= get_field('banner', $obj->ID); ?>)">
     <div class="traveltour-header-transparent-substitute"></div>
     <div class="traveltour-page-title-overlay"></div>
     <div class="traveltour-page-title-container traveltour-container">
@@ -163,26 +256,6 @@ get_header();
                                                 <input class="tourmaster-datepicker-alt" name="date" type="hidden" value=""/>
                                             </div>
                                         </div>
-                                        <div class="tourmaster-tour-search-field tourmaster-tour-search-field-month">
-                                            <label class="gdlr-core-skin-title">Month</label>
-                                            <div class="tourmaster-combobox-wrap">
-                                                <select name="month">
-                                                    <option value="">Any</option>
-                                                    <option value="2023-05">May 2023</option>
-                                                    <option value="2023-06">June 2023</option>
-                                                    <option value="2023-07">July 2023</option>
-                                                    <option value="2023-08">August 2023</option>
-                                                    <option value="2023-09">September 2023</option>
-                                                    <option value="2023-10">October 2023</option>
-                                                    <option value="2023-11">November 2023</option>
-                                                    <option value="2023-12">December 2023</option>
-                                                    <option value="2024-01">January 2024</option>
-                                                    <option value="2024-02">February 2024</option>
-                                                    <option value="2024-03">March 2024</option>
-                                                    <option value="2024-04">April 2024</option>
-                                                </select>
-                                            </div>
-                                        </div>
                                         <div class="tourmaster-column-30 tourmaster-search-price-column-left">
                                             <div class="tourmaster-tour-search-field tourmaster-tour-search-field-min-price">
                                                 <label class="gdlr-core-skin-title">Min Price</label>
@@ -206,21 +279,28 @@ get_header();
                                                 <div class="tourmaster-type-filter-item">
                                                     <h5 class="tourmaster-type-filter-item-title">Tour Age</h5>
                                                     <label class="tourmaster-type-filter-term">
-                                                        <input type="checkbox" name="tax-tour-age[]" value="10"/>
+                                                        <input type="radio" name="tax-tour-age" value="1+"/>
+                                                        <span class="tourmaster-type-filter-display">
+                                                                            <i class="fa fa-check"></i>
+                                                                            <span class="tourmaster-head">1+</span>
+                                                                        </span>
+                                                    </label>
+                                                    <label class="tourmaster-type-filter-term">
+                                                        <input type="radio" name="tax-tour-age" value="5"/>
+                                                        <span class="tourmaster-type-filter-display">
+                                                                            <i class="fa fa-check"></i>
+                                                                            <span class="tourmaster-head">5+</span>
+                                                                        </span>
+                                                    </label>
+                                                    <label class="tourmaster-type-filter-term">
+                                                        <input type="radio" name="tax-tour-age" value="10"/>
                                                         <span class="tourmaster-type-filter-display">
                                                                             <i class="fa fa-check"></i>
                                                                             <span class="tourmaster-head">10+</span>
                                                                         </span>
                                                     </label>
                                                     <label class="tourmaster-type-filter-term">
-                                                        <input type="checkbox" name="tax-tour-age[]" value="12"/>
-                                                        <span class="tourmaster-type-filter-display">
-                                                                            <i class="fa fa-check"></i>
-                                                                            <span class="tourmaster-head">12+</span>
-                                                                        </span>
-                                                    </label>
-                                                    <label class="tourmaster-type-filter-term">
-                                                        <input type="checkbox" name="tax-tour-age[]" value="15"/>
+                                                        <input type="radio" name="tax-tour-age" value="15"/>
                                                         <span class="tourmaster-type-filter-display">
                                                                             <i class="fa fa-check"></i>
                                                                             <span class="tourmaster-head">15+</span>
@@ -254,14 +334,11 @@ get_header();
                                     <h3 class="tourmaster-tour-order-filterer-title">Sort by</h3>
                                     <div class="tourmaster-combobox-wrap">
                                         <form class="form-oiderby-test" method="post">
-                                            <select class="form-orderby">
+                                            <select class="form-orderby form-choise-type-sort">
     <!--                                            data-ajax-name="orderby"-->
                                                 <option value="date" selected>Release Date</option>
-                                                <option value="tour-date" class="order-item">Tour Date</option>
                                                 <option value="title" class="order-item">Title</option>
-                                                <option value="price" class="order-item">Price</option>
-                                                <option value="popularity" class="order-item">Popularity</option>
-                                                <option value="rating" class="order-item">Rating</option>
+                                                <option value="price" class="order-item" selected>Price</option>
                                                 <option value="duration" class="order-item">Duration</option>
                                             </select>
                                         </form>
@@ -280,6 +357,13 @@ get_header();
                                     $count = 1;
                                     foreach ($tour->posts as $value){
                                         $field = get_field('general_imformation', $value->ID);
+                                        $infoTour = get_field('imformation_tour', $value->ID);
+                                        if(!empty($infoTour['tour_start']) && !empty($infoTour['tour_end'])){
+                                            $dateStart = date_create($infoTour['tour_start']);
+                                            $dateEnd = date_create($infoTour['tour_end']);
+                                            $start = date_format($dateStart, "M d");
+                                            $end = date_format($dateEnd, "M d");
+                                        }
                                         if ( ($count % 2) == 1){
                                             if($field['best_seller'] == 'yes'){?>
                                                 <div class="gdlr-core-item-list  tourmaster-item-pdlr tourmaster-column-30 tourmaster-column-first">
@@ -372,15 +456,6 @@ get_header();
                                                                     </div>
                                                                     <div class="tourmaster-tour-info tourmaster-tour-info-availability ">
                                                                         <i class="fa fa-calendar"></i>
-                                                                        <?php
-                                                                        $infoTour = get_field('information_tour', $value->ID);
-                                                                        if(!empty($infoTour['tour_start']) && !empty($infoTour['tour_end'])){
-                                                                            $dateStart = date_create($infoTour['tour_start']);
-                                                                            $dateEnd = date_create($infoTour['tour_end']);
-                                                                            $start = date_format($dateStart, "M d");
-                                                                            $end = date_format($dateEnd, "M d");
-                                                                        }
-                                                                        ?>
                                                                         Availability : <?php if(!empty($start)){echo $start;}else{echo get_the_date();} ?>’ - <?php if(!empty($end)){echo $end;}else{echo get_the_date();} ?>’
                                                                     </div>
                                                                 </div>
@@ -508,10 +583,7 @@ get_header();
                                                     <div class="tourmaster-tour-grid  tourmaster-tour-frame tourmaster-tour-grid-style-2 tourmaster-price-right-title">
                                                         <div class="tourmaster-tour-grid-inner" style="box-shadow: 0 0 25px rgba(10, 10, 10,0.08); -moz-box-shadow: 0 0 25px rgba(10, 10, 10,0.08); -webkit-box-shadow: 0 0 25px rgba(10, 10, 10,0.08); border-radius: 3px;-moz-border-radius: 3px;-webkit-border-radius: 3px;">
                                                             <div class="tourmaster-tour-thumbnail tourmaster-media-image  gdlr-core-outer-frame-element">
-                                                                <a class="gdlr-core-lightgallery gdlr-core-js " href="https://www.youtube.com/watch?v=eZjmjT5SLYs">
-                                                                    <div class="tourmaster-tour-thumbnail-overlay">
-                                                                        <i class="fa fa-film"></i>
-                                                                    </div>
+                                                                <a href="<?= $value->guid; ?>">
                                                                     <img src="<?= get_the_post_thumbnail_url($value->ID); ?>" width="700" height="430" srcset="<?= get_the_post_thumbnail_url($value->ID)?> 400w, <?= get_the_post_thumbnail_url($value->ID)?>" sizes="(max-width: 767px) 100vw, (max-width: 1150px) 50vw, 575px" alt=""/>
                                                                 </a>
                                                             </div>
@@ -776,4 +848,7 @@ get_footer();
     var tourSearch = "<?php echo $textSearch; ?>";
     var destination = "<?php echo $destination; ?>";
     var duration = "<?php echo $duration; ?>";
+    var minPrice = "<?php echo $minPrice?>";
+    var maxPrice = "<?php echo $maxPrice?>";
+    var minAge = "<?php echo $minAge?>";
 </script>

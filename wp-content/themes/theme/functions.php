@@ -346,17 +346,62 @@ function load_scripts() {
 add_action('wp_enqueue_scripts', 'load_scripts');
 
 function filter_ajax(){
+    $typeSort = xss(no_sql_injection($_POST['typeSort']));
     $sort_order = xss(no_sql_injection($_POST['sort_order']));
     $tourSearch = xss(no_sql_injection($_POST['tourSearch']));
     $destination = xss(no_sql_injection($_POST['destination']));
     $duration = xss(no_sql_injection($_POST['duration']));
+    $minPrice = xss(no_sql_injection($_POST['minPrice']));
+    $maxPrice = xss(no_sql_injection($_POST['maxPrice']));
+    $minAge = xss(no_sql_injection($_POST['minAge']));
 
-    $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
+    if (empty($minPrice)){
+        $minPrice = 0;
+    }
+
+    if (empty($maxPrice)){
+        $maxPrice = 9999999999999;
+    }
+
+    echo '<script>console.log('. $minPrice .')</script>';
+
+    if($typeSort == 'price'){
+        $metaKey = 'general_imformation_save_price';
+        $orderBy = 'meta_value_num';
+    }elseif ($typeSort == 'title'){
+        $metaKey = 'general_imformation_name';
+        $orderBy = 'meta_value title';
+    }elseif ($typeSort == 'date'){
+        $metaKey = 'imformation_tour_tour_start';
+        $orderBy = 'meta_value_num';
+    }
+
+    $metaKeyAge = 'imformation_tour_min_age';
+    $metaKeyPrice = 'general_imformation_save_price';
+    $metaKeyDutarion = 'general_imformation_day_vacation';
+
+
+    if(empty($duration)) {
+        $durationMin = 0;
+        $durationMax = 999999999999;
+    }else{
+        if ($duration == 1){
+            $metaKeyDutarion = 'general_imformation_hour';
+            $durationMin = -1;
+            $durationMax = 99999999999;
+        }elseif ($duration == 7){
+            $durationMax = 9999999999999999;
+        }else{
+            $durationMin = $duration;
+            $durationMax = $duration + 2;
+        }
+    }
 
     if (!empty($destination)){
         $arrTour = array(
             'post_type'=>'dia_diem_du_lich',
-            'paged' => $paged,
+            'posts_per_page'=>-1,
+//            'paged' => $paged,
             'relation'=>'AND',
             'tax_query'=>array(
                 array(
@@ -373,20 +418,39 @@ function filter_ajax(){
                     'compare'=>'LIKE',
                 ),
                 array(
-                    'key'=>'general_imformation_day_vacation',
-                    'value'=>$duration,
-                    'compare'=>'LIKE',
-                )
+                    'key'=>$metaKeyDutarion,
+                    'value'=>$durationMin,
+                    'compare'=>'>=',
+                ),
+                array(
+                    'key'=>$metaKeyDutarion,
+                    'value'=>$durationMax,
+                    'compare'=>'<=',
+                ),
+                array(
+                    'key'=>$metaKeyPrice,
+                    'value'=>$minPrice,
+                    'compare'=>'>='
+                ),
+                array(
+                    'key'=>$metaKeyPrice,
+                    'value'=>$maxPrice,
+                    'compare'=>'<='
+                ),
+                array(
+                    'key'=>$metaKeyAge,
+                    'value'=>$minAge,
+                    'compare'=>'>='
+                ),
             ),
-            'meta_key'=>'general_imformation_save_price',
-            'orderby' => 'meta_value_num',
+            'meta_key'=>$metaKey,
+            'orderby' => $orderBy,
             'order' => $sort_order
         );
-        echo '<script>console.log("tren");</script>';
     }else{
         $arrTour = array(
             'post_type'=>'dia_diem_du_lich',
-            'paged' => $paged,
+            'posts_per_page'=>-1,
             'meta_query'=>array(
                 'relation'=>'AND',
                 array(
@@ -394,12 +458,36 @@ function filter_ajax(){
                     'value'=>$tourSearch,
                     'compare'=>'LIKE',
                 ),
+                array(
+                    'key'=>$metaKeyDutarion,
+                    'value'=>$durationMin,
+                    'compare'=>'>=',
+                ),
+                array(
+                    'key'=>$metaKeyDutarion,
+                    'value'=>$durationMax,
+                    'compare'=>'<=',
+                ),
+                array(
+                    'key'=>$metaKeyPrice,
+                    'value'=>$minPrice,
+                    'compare'=>'>='
+                ),
+                array(
+                    'key'=>$metaKeyPrice,
+                    'value'=>$maxPrice,
+                    'compare'=>'<='
+                ),
+                array(
+                    'key'=>$metaKeyAge,
+                    'value'=>$minAge,
+                    'compare'=>'>='
+                ),
             ),
-            'meta_key'=>'general_imformation_save_price',
-            'orderby' => 'meta_value_num',
+            'meta_key'=>$metaKey,
+            'orderby' => $orderBy,
             'order' => $sort_order
         );
-        echo '<script>console.log("duoi");</script>';
     }
 
     $tour = new WP_Query($arrTour);
@@ -408,13 +496,20 @@ function filter_ajax(){
     $output = "";
     foreach ($tour->posts as $value){
         $field = get_field('general_imformation', $value->ID);
+        $infoTour = get_field('imformation_tour', $value->ID);
+        if(!empty($infoTour['tour_start']) && !empty($infoTour['tour_end'])){
+            $dateStart = date_create($infoTour['tour_start']);
+            $dateEnd = date_create($infoTour['tour_end']);
+            $start = date_format($dateStart, "M d");
+            $end = date_format($dateEnd, "M d");
+        }
         if(($count % 2) == 1){
             if($field['best_seller'] == 'yes'){
                $output .= '<div class="gdlr-core-item-list  tourmaster-item-pdlr tourmaster-column-30 tourmaster-column-first">';
                $output .= '<div class="tourmaster-tour-grid  tourmaster-tour-frame tourmaster-tour-grid-style-2 tourmaster-price-right-title">';
                $output .= '<div class="tourmaster-tour-grid-inner" style="box-shadow: 0 0 25px rgba(10, 10, 10,0.08); -moz-box-shadow: 0 0 25px rgba(10, 10, 10,0.08); -webkit-box-shadow: 0 0 25px rgba(10, 10, 10,0.08); border-radius: 3px;-moz-border-radius: 3px;-webkit-border-radius: 3px;">';
                $output .= '<div class="tourmaster-tour-thumbnail tourmaster-media-image  gdlr-core-outer-frame-element">';
-               $output .= '<a href="<?= $value->guid?>">';
+               $output .= '<a href="'.$value->guid.'">';
                $output .= '<img src="'. get_the_post_thumbnail_url($value->ID).'" width="700" height="430" srcset="'.get_the_post_thumbnail_url($value->ID).' 400w, '. get_the_post_thumbnail_url($value->ID) .' 700w" sizes="(max-width: 767px) 100vw, (max-width: 1150px) 50vw, 575px" alt=""/>';
                $output .= '</a>';
                $output .= '</div>';
@@ -424,7 +519,7 @@ function filter_ajax(){
                $output .= 'Best Seller';
                $output .= '</div>';
                $output .= '<h3 class="tourmaster-tour-title gdlr-core-skin-title">';
-               $output .= '<a href="<?= $value->guid?>">';
+               $output .= '<a href="'. $value->guid .'">';
                $output .= '<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" xml:space="preserve" style="fill: #f97150">
                                                                                 <path d="M397.413,199.303c-2.944-4.576-8-7.296-13.408-7.296h-112v-176c0-7.552-5.28-14.08-12.672-15.648
 			c-7.52-1.6-14.88,2.272-17.952,9.152l-128,288c-2.208,4.928-1.728,10.688,1.216,15.2c2.944,4.544,8,7.296,13.408,7.296h112v176
@@ -489,7 +584,7 @@ function filter_ajax(){
 				C236.243,89.978,229.477,83.198,221.124,83.198z"/>
                                                                             </svg>';
                                         if (!empty($field['day_vacation']) && $field['day_vacation']!=0):
-                                            $output .= $field['day_vacation'] . 'Day';
+                                            $output .= $field['day_vacation'] . 'Day' . ' ';
                                         endif;
                                         if (!empty($field['night_vacation']) && $field['night_vacation']!=0):
                                             $output .=  $field['night_vacation'] . 'Nights';
@@ -500,13 +595,6 @@ function filter_ajax(){
                                     $output .= '</div>';
                                     $output .= '<div class="tourmaster-tour-info tourmaster-tour-info-availability ">';
                                         $output .= '<i class="fa fa-calendar"></i>';
-                                        $infoTour = get_field('information_tour', $value->ID);
-                                        if(!empty($infoTour['tour_start']) && !empty($infoTour['tour_end'])){
-                                            $dateStart = date_create($infoTour['tour_start']);
-                                            $dateEnd = date_create($infoTour['tour_end']);
-                                            $start = date_format($dateStart, "M d");
-                                            $end = date_format($dateEnd, "M d");
-                                        }
                                         $output .= 'Availability :';
                                         if(!empty($start)){
                                             $output .=  $start;
@@ -603,7 +691,7 @@ function filter_ajax(){
 				C236.243,89.978,229.477,83.198,221.124,83.198z"/>
                                                                             </svg>';
                                         if (!empty($field['day_vacation'])):
-                                            $output .=  $field['day_vacation'] .' Days';
+                                            $output .=  $field['day_vacation'] .' Days' . ' ';
                                         endif;
                                         if (!empty($field['night_vacation'])):
                                             $output .= $field['night_vacation'] .'Nights';
@@ -614,13 +702,6 @@ function filter_ajax(){
                 $output .= '</div>';
                 $output .= '<div class="tourmaster-tour-info tourmaster-tour-info-availability ">';
                 $output .= '<i class="fa fa-calendar"></i>';
-                                        $infoTour = get_field('information_tour', $value->ID);
-                                        if(!empty($infoTour['tour_start']) && !empty($infoTour['tour_end'])){
-                                            $dateStart = date_create($infoTour['tour_start']);
-                                            $dateEnd = date_create($infoTour['tour_end']);
-                                            $start = date_format($dateStart, "M d");
-                                            $end = date_format($dateEnd, "M d");
-                                        }
                 $output .= 'Availability :';
                                         if(!empty($start)){
                                             $output .= $start;
@@ -734,7 +815,7 @@ function filter_ajax(){
 				C236.243,89.978,229.477,83.198,221.124,83.198z"/>
                                                                             </svg>';
                                         if (!empty($field['day_vacation'])):
-                                            $output .= $field['day_vacation'] .' Days';
+                                            $output .= $field['day_vacation'] .' Days' . ' ';
                                         endif;
                                         if (!empty($field['night_vacation'])):
                                             $output .= $field['night_vacation'] .' Nights';
@@ -745,13 +826,6 @@ function filter_ajax(){
                                     $output .= '</div>';
                                     $output .= '<div class="tourmaster-tour-info tourmaster-tour-info-availability ">';
                                         $output .= '<i class="fa fa-calendar"></i>';
-                                        $infoTour = get_field('information_tour', $value->ID);
-                                        if(!empty($infoTour['tour_start']) && !empty($infoTour['tour_end'])){
-                                            $dateStart = date_create($infoTour['tour_start']);
-                                            $dateEnd = date_create($infoTour['tour_end']);
-                                            $start = date_format($dateStart, "M d");
-                                            $end = date_format($dateEnd, "M d");
-                                        }
                                         $output .= 'Availability :';
                                         if(!empty($start)){
                                             $output .= $start;
@@ -905,3 +979,12 @@ function filter_ajax(){
 }
 add_action('wp_ajax_ajax_example_request', 'filter_ajax');
 add_action('wp_ajax_nopriv_ajax_example_request', 'filter_ajax');
+
+
+//function order_admin_ajax(){
+//    echo "check";
+//    die();
+//}
+//
+//add_action('wp_ajax_order_admin_ajax', 'order_admin_ajax');
+//add_action('wp_ajax_nopriv_order_admin_ajax', 'order_admin_ajax');

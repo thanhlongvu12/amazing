@@ -22454,9 +22454,9 @@ var Froogaloop = function() {
         p(".lg-backdrop").css("transition-duration", this.s.backdropDuration + "ms"),
         i = 0; i < this.$items.length; i++)
             t += '<div class="lg-item"></div>';
-        if (this.s.controls && 1 < this.$items.length && (s = '<div class="lg-actions"><div class="lg-prev lg-icon"><i class="fa-light fa-arrow-left"></i></div>' + this.s.prevHtml + '<div class="lg-next lg-icon"><i class="fa-light fa-arrow-right">' + this.s.nextHtml + "</i></div></div>"),
+        if (this.s.controls && 1 < this.$items.length && (s = '<div class="lg-actions"><div class="lg-prev lg-icon"><i class="fa fa-arrow-left"></i></div>' + this.s.prevHtml + '<div class="lg-next lg-icon"><i class="fa fa-arrow-right">' + this.s.nextHtml + "</i></div></div>"),
         ".lg-sub-html" === this.s.appendSubHtmlTo && (l = '<div class="lg-sub-html"></div>'),
-        e = '<div class="lg-outer ' + this.s.addClass + " " + this.s.startClass + '"><div class="lg" style="width:' + this.s.width + "; height:" + this.s.height + '"><div class="lg-inner">' + t + '</div><div class="lg-toolbar group"><span class="lg-close lg-icon"><i class="fa-light fa-xmark"></i></span></div>' + s + l + "</div></div>",
+        e = '<div class="lg-outer ' + this.s.addClass + " " + this.s.startClass + '"><div class="lg" style="width:' + this.s.width + "; height:" + this.s.height + '"><div class="lg-inner">' + t + '</div><div class="lg-toolbar group"><span class="lg-close lg-icon"><i class="fa fa-xmark"></i></span></div>' + s + l + "</div></div>",
         p("body").append(e),
         this.$outer = p(".lg-outer"),
         this.$slide = this.$outer.find(".lg-item"),
@@ -38185,11 +38185,6 @@ var gdlr_core_pbf = {
             var idIcon = $(this).attr('data-id');
             var icon = $('#icon-' + idIcon);
             var previousIconClick = $('#icon-' + iconPervious);
-            // if (icon.hasClass('fa-minus')) {
-            //     icon.removeClass('fa-minus').addClass('fa-plus');
-            // } else {
-            //     icon.removeClass('fa-plus').addClass('fa-minus');
-            // }
             if ($(this).closest('.gdlr-core-accordion-item-title').length) {
                 return
             }
@@ -38200,11 +38195,6 @@ var gdlr_core_pbf = {
                     item_tab.removeClass('gdlr-core-active').find('.gdlr-core-accordion-item-content').css({
                         display: 'block'
                     }).slideUp(200);
-                    // if (icon.hasClass('fa-minus')) {
-                    //     icon.removeClass('fa-minus').addClass('fa-plus');
-                    // } else {
-                    //     icon.removeClass('fa-plus').addClass('fa-minus');
-                    // }
                 }
             } else {
                 item_tab.addClass('gdlr-core-active').siblings('.gdlr-core-active').removeClass('gdlr-core-active').find('.gdlr-core-accordion-item-content').css({
@@ -39209,8 +39199,8 @@ var gdlr_core_pbf = {
                 useCSS: !1,
                 animation: 'fade',
                 animationLoop: !0,
-                prevText: '<i class="fa-light fa-arrow-left"></i>',
-                nextText: '<i class="fa-light fa-arrow-right"></i>'
+                prevText: '<i class="fa fa-arrow-left"></i>',
+                nextText: '<i class="fa fa-arrow-right"></i>'
             };
             if ($(this).attr('data-start-at') && $(this).attr('data-start-at') > 1) {
                 flex_attr.startAt = $(this).attr('data-start-at') - 1
@@ -39267,7 +39257,7 @@ var gdlr_core_pbf = {
                             flex_attr.customDirectionNav = $(this).closest('.' + $(this).attr('data-nav-parent')).find('.flex-prev, .flex-next')
                         } else {
                             $(this).closest('.' + $(this).attr('data-nav-parent')).each(function() {
-                                var flex_nav = $('<ul class="flex-direction-nav">' + '<li class="flex-nav-prev"><a class="flex-prev" href="#"><i class="fa-light fa-arrow-left"></i></a></li>' + '<li class="flex-nav-next"><a class="flex-next" href="#"><i class="fa-light fa-arrow-right"></i></a></li>' + '</ul>');
+                                var flex_nav = $('<ul class="flex-direction-nav">' + '<li class="flex-nav-prev"><a class="flex-prev" href="#"><i class="fa fa-arrow-left"></i></a></li>' + '<li class="flex-nav-next"><a class="flex-next" href="#"><i class="fa fa-arrow-right"></i></a></li>' + '</ul>');
                                 var flex_nav_position = $(this).find('.gdlr-core-flexslider-nav');
                                 if (flex_nav_position.length) {
                                     flex_nav_position.append(flex_nav);
@@ -43493,8 +43483,8 @@ var TMi18n = {
                 useCSS: !1,
                 animation: 'fade',
                 animationLoop: !0,
-                prevText: '<i class="fa-light fa-arrow-left"></i>',
-                nextText: '<i class="fa-light fa-arrow-right"></i>'
+                prevText: '<i class="fa fa-arrow-left"></i>',
+                nextText: '<i class="fa fa-arrow-right"></i>'
             };
             if ($(this).find('.tourmaster-flexslider').length > 0) {
                 $(this).children('ul.slides').addClass('parent-slides');
@@ -43539,7 +43529,7 @@ var TMi18n = {
                         flex_attr.customDirectionNav = $(this).closest('.' + $(this).attr('data-nav-parent')).find('.flex-prev, .flex-next')
                     } else {
                         $(this).closest('.' + $(this).attr('data-nav-parent')).each(function() {
-                            var flex_nav = $('<ul class="tourmaster-flex-direction-nav">' + '<li class="tourmaster-flex-nav-prev"><a class="tourmaster-flex-prev" href="#"><i class="fa-light fa-arrow-left"></i></a></li>' + '<li class="tourmaster-flex-nav-next"><a class="tourmaster-flex-next" href="#"><i class="fa-light fa-arrow-right"></i></a></li>' + '</ul>');
+                            var flex_nav = $('<ul class="tourmaster-flex-direction-nav">' + '<li class="tourmaster-flex-nav-prev"><a class="tourmaster-flex-prev" href="#"><i class="fa fa-arrow-left"></i></a></li>' + '<li class="tourmaster-flex-nav-next"><a class="tourmaster-flex-next" href="#"><i class="fa fa-arrow-right"></i></a></li>' + '</ul>');
                             var flex_nav_position = $(this).find('.tourmaster-flexslider-nav');
                             if (flex_nav_position.length) {
                                 flex_nav_position.append(flex_nav);
